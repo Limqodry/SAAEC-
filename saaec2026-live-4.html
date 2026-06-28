@@ -1,0 +1,2072 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>SAAEC 2026 — THE ARENA | FEB Unpad</title>
+<meta name="description" content="SAAEC 2026: THE ARENA — Tournament management dashboard resmi untuk event Sport, E-Sport, Art, dan Academic Competition FEB Universitas Padjadjaran. 648 peserta, 23 cabang lomba."/>
+<meta name="theme-color" content="#050810"/>
+
+<!-- Open Graph (WhatsApp, Facebook, Telegram) -->
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="SAAEC 2026 — THE ARENA"/>
+<meta property="og:description" content="Enter Different. Leave As One. — Dashboard resmi kompetisi FEB Unpad: 648 peserta, 23 cabang, 5 jurusan. Sport · E-Sport · Art · Academic."/>
+<meta property="og:image" content="https://og-image-saaec.vercel.app/api/og?title=SAAEC+2026+%E2%80%94+THE+ARENA&desc=FEB+Universitas+Padjadjaran"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:url" content="https://saaec2026.netlify.app"/>
+<meta property="og:site_name" content="SAAEC 2026 THE ARENA"/>
+<meta property="og:locale" content="id_ID"/>
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="SAAEC 2026 — THE ARENA"/>
+<meta name="twitter:description" content="Enter Different. Leave As One. — Dashboard resmi kompetisi FEB Unpad."/>
+<meta name="twitter:image" content="https://og-image-saaec.vercel.app/api/og?title=SAAEC+2026"/>
+
+<!-- PWA / Mobile -->
+<meta name="apple-mobile-web-app-title" content="SAAEC 2026"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polygon points='50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5' fill='%23FFE600'/><text y='.9em' font-size='55' x='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial Black' font-weight='900' fill='%23000'>SA</text></svg>"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --cyan:#00F5FF;--cyan2:#00C4CC;
+  --yellow:#FFE600;--yellow2:#FFAB00;
+  --red:#FF2D55;--red2:#C0182E;
+  --blue:#0033FF;--blue2:#001CCC;
+  --cream:#FFF8E7;--pink:#FF85A1;
+  --bg:#050810;--bg1:#080D1A;--bg2:#0C1220;--bg3:#111828;--bg4:#16202E;
+  --border:#1A2D45;--border2:rgba(0,245,255,.15);
+  --txt1:#F0F6FF;--txt2:#8DA4BF;--txt3:#3D5A73;
+  --glow-c:0 0 30px rgba(0,245,255,.5),0 0 80px rgba(0,245,255,.2);
+  --glow-y:0 0 30px rgba(255,230,0,.5),0 0 80px rgba(255,230,0,.2);
+  --glow-r:0 0 30px rgba(255,45,85,.5);
+  --r:6px;--r2:12px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--txt1);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg1)}
+::-webkit-scrollbar-thumb{background:var(--blue);border-radius:3px}
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.6}
+
+#loader{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px}
+.loader-ring{width:64px;height:64px;border-radius:50%;border:3px solid transparent;border-top:3px solid var(--cyan);border-right:3px solid var(--yellow);animation:ringGo 1s linear infinite}
+@keyframes ringGo{to{transform:rotate(360deg)}}
+.loader-title{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.15em}
+.loader-sub{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.25em;color:var(--txt3);text-transform:uppercase;animation:blink 1.2s ease infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+
+#nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:58px;background:rgba(5,8,16,.92);backdrop-filter:blur(20px);border-bottom:2px solid var(--border);display:flex;align-items:center;padding:0 18px;transition:border-color .3s}
+#nav.scrolled{border-bottom-color:var(--cyan2)}
+.nav-brand{display:flex;align-items:center;gap:9px;margin-right:auto;cursor:pointer}
+.nav-logo-box{width:34px;height:34px;background:var(--yellow);clip-path:polygon(50% 0%,95% 25%,95% 75%,50% 100%,5% 75%,5% 25%);display:flex;align-items:center;justify-content:center;animation:logoPulse 3s ease-in-out infinite;flex-shrink:0}
+@keyframes logoPulse{0%,100%{filter:drop-shadow(0 0 4px var(--yellow))}50%{filter:drop-shadow(0 0 12px var(--yellow))}}
+.nav-logo-box span{font-family:'Bebas Neue',sans-serif;font-size:13px;color:#000}
+.nav-wordmark{display:flex;flex-direction:column;line-height:1}
+.nav-wordmark-top{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.13em}
+.nav-wordmark-bot{font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:.2em;color:var(--cyan);text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:2px;list-style:none}
+.nav-links button{font-size:12px;font-weight:600;color:var(--txt2);background:none;border:none;cursor:pointer;padding:6px 13px;border-radius:var(--r);letter-spacing:.06em;text-transform:uppercase;transition:all .2s;position:relative}
+.nav-links button:hover,.nav-links button.active{color:var(--yellow)}
+.nav-links button.active::after{content:'';position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);width:14px;height:3px;background:var(--yellow);border-radius:2px;box-shadow:0 0 10px var(--yellow)}
+.nav-ham{display:none;flex-direction:column;gap:4px;background:none;border:none;cursor:pointer;padding:4px}
+.nav-ham span{display:block;width:20px;height:2px;background:var(--txt2);border-radius:1px}
+@media(max-width:768px){
+  .nav-links{display:none;position:fixed;top:58px;left:0;right:0;background:rgba(5,8,16,.98);border-bottom:2px solid var(--border);flex-direction:column;padding:8px 0}
+  .nav-links.open{display:flex}
+  .nav-links button{width:100%;text-align:left;padding:12px 22px;border-radius:0}
+  .nav-ham{display:flex}
+}
+
+.page{display:none;padding-top:58px;min-height:100vh;position:relative;z-index:1}
+.page.on{display:block}
+.display{font-family:'Bebas Neue',sans-serif;letter-spacing:.05em}
+.mono{font-family:'JetBrains Mono',monospace}
+.sec-label{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--cyan);margin-bottom:10px}
+.sec-label::before{content:'▶';font-size:8px}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,5vw,52px);letter-spacing:.05em;line-height:1}
+.sec-title .hl{color:var(--yellow)}
+.wrap{max-width:1280px;margin:0 auto;padding:0 20px}
+@media(max-width:640px){.wrap{padding:0 14px}}
+
+.card{background:var(--bg2);border:2px solid var(--border);border-radius:var(--r2);transition:all .25s}
+.card:hover{border-color:var(--border2)}
+.card-glow:hover{border-color:var(--cyan2);box-shadow:0 0 0 1px rgba(0,245,255,.1),0 8px 32px rgba(0,0,0,.5)}
+.card-yellow:hover{border-color:var(--yellow2)}
+
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:1.5px solid}
+.b-sport{background:rgba(255,171,0,.12);color:var(--yellow2);border-color:rgba(255,171,0,.3)}
+.b-esport{background:rgba(0,245,255,.1);color:var(--cyan);border-color:rgba(0,245,255,.25)}
+.b-art{background:rgba(255,45,85,.1);color:var(--red);border-color:rgba(255,45,85,.25)}
+.b-academic{background:rgba(0,51,255,.12);color:#6699FF;border-color:rgba(102,153,255,.3)}
+.b-live{background:rgba(255,45,85,.2);color:var(--red);border-color:rgba(255,45,85,.4);animation:livePulse 2s ease infinite}
+.b-done{background:rgba(0,255,136,.1);color:#00FF88;border-color:rgba(0,255,136,.25)}
+.b-up{background:rgba(141,164,191,.08);color:var(--txt2);border-color:rgba(141,164,191,.2)}
+@keyframes livePulse{0%,100%{opacity:1}50%{opacity:.5}}
+
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;border:none;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.13em;border-radius:var(--r);text-decoration:none;transition:all .2s}
+.btn-cyan{background:var(--cyan);color:#000;box-shadow:0 0 24px rgba(0,245,255,.4)}
+.btn-cyan:hover{box-shadow:var(--glow-c);transform:translateY(-2px)}
+.btn-yellow{background:var(--yellow);color:#000;box-shadow:0 0 24px rgba(255,230,0,.4)}
+.btn-yellow:hover{box-shadow:var(--glow-y);transform:translateY(-2px)}
+.btn-outline{background:transparent;border:2px solid var(--cyan);color:var(--cyan)}
+.btn-outline:hover{background:rgba(0,245,255,.1);box-shadow:var(--glow-c)}
+.btn-sm{padding:8px 16px;font-size:13px}
+
+.searchbar{display:flex;align-items:center;gap:10px;background:var(--bg2);border:2px solid var(--border);border-radius:var(--r);padding:0 14px;transition:border-color .2s}
+.searchbar:focus-within{border-color:var(--cyan2);box-shadow:0 0 0 3px rgba(0,245,255,.07)}
+.searchbar input{background:none;border:none;outline:none;color:var(--txt1);font-size:14px;font-weight:500;padding:11px 0;width:100%}
+.searchbar input::placeholder{color:var(--txt3)}
+.sel{background:var(--bg2);border:2px solid var(--border);border-radius:var(--r);color:var(--txt1);font-size:13px;font-weight:500;padding:10px 32px 10px 14px;outline:none;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7'%3E%3Cpath d='M0 0l5 6 5-6' stroke='%233D5A73' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+.sel:focus{border-color:var(--cyan)}
+.sel option{background:var(--bg3)}
+
+.tabs{display:flex;gap:2px;background:var(--bg1);padding:3px;border-radius:var(--r);border:2px solid var(--border)}
+.tab{padding:7px 15px;font-size:12px;font-weight:700;color:var(--txt3);background:none;border:none;cursor:pointer;border-radius:5px;transition:all .2s;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+.tab.on{background:var(--bg3);color:var(--yellow);box-shadow:0 0 0 1px var(--border)}
+.tab:hover:not(.on){color:var(--txt2)}
+
+.prog-wrap{height:6px;background:var(--bg3);border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--cyan),var(--yellow));transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:1024px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.g4,.g3,.g2{grid-template-columns:1fr}}
+
+.ticker-wrap{background:var(--blue2);border-top:2px solid var(--blue);border-bottom:2px solid var(--blue);padding:9px 0;overflow:hidden;white-space:nowrap}
+.ticker-inner{display:inline-flex;gap:50px;animation:tickerAnim 28s linear infinite}
+@keyframes tickerAnim{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker-item{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--cream);text-transform:uppercase}
+.ticker-sep{color:var(--yellow);font-size:13px}
+
+.hr{height:2px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
+.r1{color:var(--yellow);text-shadow:var(--glow-y)}
+.r2{color:#D0D0D0;text-shadow:0 0 10px rgba(208,208,208,.5)}
+.r3{color:#CD8B4A;text-shadow:0 0 10px rgba(205,139,74,.4)}
+
+.scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;animation:floatY 2.5s ease-in-out infinite}
+@keyframes floatY{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-7px)}}
+.scroll-mouse{width:20px;height:32px;border:2px solid var(--txt3);border-radius:11px;position:relative}
+.scroll-mouse::after{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:2px;height:7px;background:var(--cyan);border-radius:2px;animation:scrollBall 1.6s ease-in-out infinite}
+@keyframes scrollBall{0%{top:6px;opacity:1}100%{top:16px;opacity:0}}
+.scroll-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;color:var(--txt3);text-transform:uppercase}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 20px 36px;position:relative;overflow:hidden}
+.hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse 90% 60% at 50% 0%,rgba(0,245,255,.07) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 10% 90%,rgba(255,230,0,.05) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 90% 80%,rgba(255,45,85,.04) 0%,transparent 60%)}
+.hero-grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(0,245,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,.025) 1px,transparent 1px);background-size:46px 46px}
+.hero-corner{position:absolute;width:70px;height:70px;border-color:var(--cyan);border-style:solid;opacity:.25}
+.hero-corner.tl{top:18px;left:18px;border-width:2px 0 0 2px}
+.hero-corner.tr{top:18px;right:18px;border-width:2px 2px 0 0}
+.hero-corner.bl{bottom:70px;left:18px;border-width:0 0 2px 2px}
+.hero-corner.br{bottom:70px;right:18px;border-width:0 2px 2px 0}
+.hero-event-tag{display:inline-flex;align-items:center;gap:9px;background:rgba(255,230,0,.1);border:1.5px solid rgba(255,230,0,.3);border-radius:4px;padding:6px 15px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.18em;color:var(--yellow);text-transform:uppercase;margin-bottom:22px;animation:fadeUp .6s ease .2s both}
+.hero-event-tag::before{content:'◉';animation:livePulse 2s ease infinite}
+.hero-main-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(58px,13vw,150px);line-height:.88;letter-spacing:.03em;margin-bottom:6px;animation:fadeUp .7s ease .4s both}
+.hero-main-title .line1{display:block;color:var(--txt1);-webkit-text-stroke:1px rgba(255,255,255,.2)}
+.hero-main-title .line2{display:block;color:transparent;-webkit-text-stroke:3px var(--cyan);filter:drop-shadow(0 0 22px rgba(0,245,255,.6))}
+.hero-year{font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,4vw,32px);letter-spacing:.45em;color:var(--txt3);margin-bottom:18px;animation:fadeUp .7s ease .55s both}
+.hero-tagline{font-size:clamp(13px,2.3vw,19px);font-weight:300;color:var(--txt2);margin-bottom:36px;animation:fadeUp .7s ease .7s both}
+.hero-tagline strong{color:var(--yellow);font-weight:700}
+.hero-cta{display:flex;gap:13px;justify-content:center;flex-wrap:wrap;margin-bottom:52px;animation:fadeUp .7s ease .85s both}
+.hero-stats{display:flex;border:2px solid var(--border);border-radius:var(--r2);overflow:hidden;background:rgba(8,13,26,.8);backdrop-filter:blur(16px);animation:fadeUp .7s ease 1s both;flex-wrap:wrap;justify-content:center}
+.hstat{padding:16px 24px;text-align:center;border-right:2px solid var(--border)}
+.hstat:last-child{border-right:none}
+.hstat-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,4vw,40px);letter-spacing:.05em;color:var(--cyan);line-height:1;text-shadow:var(--glow-c);margin-bottom:3px}
+.hstat-label{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.16em;color:var(--txt3);text-transform:uppercase}
+@media(max-width:640px){.hstat{padding:13px 16px}.hstat-num{font-size:24px}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+.cat-section{background:var(--bg1);padding:70px 0}
+.cat-card{position:relative;overflow:hidden;padding:26px 22px;cursor:pointer;border-top-width:3px;transition:all .25s}
+.cat-card .cat-icon{font-size:40px;display:block;margin-bottom:14px;transition:transform .25s;filter:drop-shadow(0 0 8px currentColor)}
+.cat-card:hover .cat-icon{transform:scale(1.15) translateY(-4px)}
+.cat-card .cat-name{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.08em;margin-bottom:4px}
+.cat-card .cat-sub{font-size:11px;font-weight:500;color:var(--txt2)}
+.cat-card .cat-bar{position:absolute;bottom:0;left:0;height:3px;width:0;transition:width .3s}
+.cat-card:hover .cat-bar{width:100%}
+.cat-s{border-top-color:var(--yellow);color:var(--yellow)}.cat-s .cat-bar{background:var(--yellow)}
+.cat-e{border-top-color:var(--cyan);color:var(--cyan)}.cat-e .cat-bar{background:var(--cyan)}
+.cat-a{border-top-color:var(--red);color:var(--red)}.cat-a .cat-bar{background:var(--red)}
+.cat-ac{border-top-color:#6699FF;color:#6699FF}.cat-ac .cat-bar{background:#6699FF}
+
+.tl-wrap{position:relative}
+.tl-wrap::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(180deg,transparent,var(--border),transparent);transform:translateX(-50%)}
+@media(max-width:768px){.tl-wrap::before{left:17px}}
+.tl-item{display:flex;margin-bottom:26px;position:relative}
+.tl-item:nth-child(even){flex-direction:row-reverse}
+@media(max-width:768px){.tl-item,.tl-item:nth-child(even){flex-direction:row;padding-left:42px}}
+.tl-dot{position:absolute;left:50%;top:17px;transform:translateX(-50%);width:13px;height:13px;border-radius:50%;background:var(--yellow);border:3px solid var(--bg);box-shadow:var(--glow-y);z-index:1}
+.tl-dot.done{background:var(--cyan);box-shadow:var(--glow-c)}
+.tl-dot.active{background:var(--red);box-shadow:var(--glow-r);animation:livePulse 2s ease infinite}
+@media(max-width:768px){.tl-dot{left:11px;transform:none}}
+.tl-body{width:calc(50% - 26px);padding:15px 18px;background:var(--bg2);border:2px solid var(--border);border-radius:var(--r2);transition:all .2s}
+.tl-item:nth-child(odd) .tl-body{margin-right:26px}
+.tl-item:nth-child(even) .tl-body{margin-left:26px}
+@media(max-width:768px){.tl-body{width:100%;margin:0 !important}}
+.tl-body:hover{border-color:var(--border2)}
+.tl-date{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--cyan);letter-spacing:.1em;margin-bottom:4px}
+.tl-title{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.07em;margin-bottom:4px}
+.tl-desc{font-size:12px;color:var(--txt2);line-height:1.5}
+
+.countdown-section{background:var(--blue2);border-top:3px solid var(--blue);border-bottom:3px solid var(--blue);padding:54px 0;text-align:center}
+.cd-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(13px,3vw,17px);letter-spacing:.28em;color:var(--cream);text-transform:uppercase;margin-bottom:22px}
+.cd-boxes{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.cd-box{width:82px;background:rgba(0,0,0,.35);border:2px solid rgba(255,255,255,.15);border-radius:var(--r2);padding:14px 10px;text-align:center}
+.cd-num{font-family:'Bebas Neue',sans-serif;font-size:46px;letter-spacing:.05em;line-height:1;color:var(--yellow);text-shadow:var(--glow-y)}
+.cd-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.18em;color:rgba(255,255,255,.5);text-transform:uppercase}
+@media(max-width:480px){.cd-box{width:64px}.cd-num{font-size:34px}}
+
+/* DASHBOARD */
+.dash-header{background:linear-gradient(180deg,var(--bg1) 0%,var(--bg) 100%);padding:36px 0 28px;border-bottom:2px solid var(--border)}
+.kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+@media(max-width:1024px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:640px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
+.kpi{padding:18px 16px;border-radius:var(--r2);position:relative;overflow:hidden}
+.kpi::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--kpi-color,var(--cyan))}
+.kpi-val{font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:.03em;line-height:1;color:var(--kpi-color,var(--cyan));margin-bottom:4px}
+.kpi-label{font-size:10px;font-weight:600;color:var(--txt3);letter-spacing:.07em;text-transform:uppercase}
+
+.dept-row{display:flex;align-items:center;gap:13px;padding:13px 0;border-bottom:1px solid rgba(26,45,69,.5)}
+.dept-row:last-child{border-bottom:none}
+.dept-rank{font-family:'Bebas Neue',sans-serif;font-size:18px;width:26px;text-align:center;flex-shrink:0}
+.dept-name{font-weight:600;font-size:13px;min-width:120px;flex-shrink:0}
+.dept-bar-wrap{flex:1}
+.dept-pts{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--cyan);min-width:48px;text-align:right;flex-shrink:0}
+.dept-medals{display:flex;gap:7px;min-width:72px;justify-content:flex-end;flex-shrink:0}
+@media(max-width:768px){.dept-medals{display:none}}
+
+.cat-breakdown-card{padding:18px}
+.cat-bd-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.cat-bd-icon{font-size:26px}
+.cat-bd-count{font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--kpi-color,var(--cyan))}
+.cat-item{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(26,45,69,.4)}
+.cat-item:last-child{border-bottom:none}
+.cat-item-name{font-size:12px;font-weight:500;flex:1;color:var(--txt2)}
+.cat-item-num{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:var(--kpi-color,var(--cyan));min-width:26px;text-align:right}
+
+.prog-card{padding:22px}
+.prog-phase{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;font-size:12px;font-weight:600}
+.prog-phase .ph-pct{font-family:'JetBrains Mono',monospace;color:var(--cyan)}
+.prog-phase-bar{margin-bottom:18px}
+
+.deleg-row{display:flex;align-items:center;gap:11px;padding:11px 16px;border-bottom:1px solid rgba(26,45,69,.5)}
+.deleg-row:last-child{border-bottom:none}
+.deleg-rank{font-family:'Bebas Neue',sans-serif;font-size:17px;width:26px;text-align:center;flex-shrink:0}
+.deleg-name{font-size:13px;font-weight:600;flex:1}
+.deleg-count{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--yellow);text-shadow:var(--glow-y)}
+
+/* LEADERBOARD */
+.podium{display:flex;align-items:flex-end;justify-content:center;gap:0;padding:36px 20px 0}
+.pod-col{display:flex;flex-direction:column;align-items:center;width:170px}
+@media(max-width:600px){.pod-col{width:108px}}
+.pod-avatar{border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;margin-bottom:9px;flex-shrink:0;position:relative}
+.pod-avatar::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px dashed currentColor;opacity:.3;animation:spin 8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pod-1 .pod-avatar{width:78px;height:78px;font-size:24px;background:rgba(255,230,0,.15);color:var(--yellow);border:3px solid var(--yellow);box-shadow:var(--glow-y)}
+.pod-2 .pod-avatar{width:66px;height:66px;font-size:20px;background:rgba(208,208,208,.1);color:#D0D0D0;border:3px solid #D0D0D0}
+.pod-3 .pod-avatar{width:60px;height:60px;font-size:17px;background:rgba(205,139,74,.1);color:#CD8B4A;border:3px solid #CD8B4A}
+.pod-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(12px,2.3vw,16px);letter-spacing:.05em;text-align:center;margin-bottom:4px;line-height:1.2}
+.pod-pts{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--txt2);margin-bottom:9px}
+.pod-stage{width:90%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,3vw,24px);border-top:3px solid currentColor}
+.pod-1 .pod-stage{height:110px;background:rgba(255,230,0,.07);color:var(--yellow);box-shadow:0 -8px 28px rgba(255,230,0,.15)}
+.pod-2 .pod-stage{height:82px;background:rgba(208,208,208,.06);color:#D0D0D0}
+.pod-3 .pod-stage{height:58px;background:rgba(205,139,74,.06);color:#CD8B4A}
+
+.lb-row{display:grid;grid-template-columns:54px 1fr 78px 78px 78px 86px;align-items:center;padding:0 16px;border-bottom:1px solid rgba(26,45,69,.6);min-height:58px;transition:background .2s}
+@media(max-width:768px){.lb-row{grid-template-columns:42px 1fr 58px 86px}}
+.lb-row:hover{background:rgba(0,245,255,.02)}
+.lb-row.gold-row{background:rgba(255,230,0,.03)}
+.lb-dept{display:flex;flex-direction:column;gap:3px}
+.lb-dept-name{font-size:13px;font-weight:600}
+.lb-medals{display:flex;gap:9px;font-family:'JetBrains Mono',monospace;font-size:10px}
+.lb-m-g{color:var(--yellow)}.lb-m-s{color:#C0C0C0}.lb-m-b{color:#CD8B4A}
+.lb-pts-cell{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--cyan);text-align:right}
+@media(max-width:768px){.lb-w-col,.lb-bar-col{display:none}}
+.lb-bar-col{padding-right:8px}
+
+.score-sys{background:var(--bg2);border:2px solid var(--border);border-radius:var(--r2);padding:18px}
+.score-sys table{width:100%;border-collapse:collapse;font-size:12px}
+.score-sys th{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--txt3);letter-spacing:.1em;text-transform:uppercase;padding:6px 8px;text-align:left;border-bottom:1px solid var(--border)}
+.score-sys td{padding:7px 8px;border-bottom:1px solid rgba(26,45,69,.4);font-weight:500}
+.score-sys tr:last-child td{border-bottom:none}
+
+/* CABANG */
+.cabang-card{padding:16px;cursor:pointer;position:relative;overflow:hidden}
+.cabang-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--cb-accent,var(--cyan));transition:width .3s}
+.cabang-card:hover::before{width:7px}
+.cabang-card:hover{transform:translateX(5px)}
+.cb-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.cb-name{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.04em}
+.cb-meta{display:flex;gap:13px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--txt3);margin-bottom:9px}
+.cb-winner{background:rgba(255,230,0,.07);border:1.5px solid rgba(255,230,0,.2);border-radius:var(--r);padding:7px 11px;display:flex;align-items:center;gap:7px;font-size:11px}
+.cb-winner .label{color:var(--txt3);letter-spacing:.05em}
+.cb-winner .name{color:var(--yellow);font-weight:700}
+.cb-tbd{background:rgba(61,90,115,.1);border:1.5px solid var(--border);border-radius:var(--r);padding:7px 11px;font-size:11px;color:var(--txt3)}
+
+/* PESERTA */
+.peserta-card{padding:18px;display:flex;flex-direction:column;gap:12px;cursor:pointer}
+.peserta-logo{width:48px;height:48px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:15px;border:2px solid;transition:all .2s}
+.peserta-card:hover .peserta-logo{transform:scale(1.08)}
+.peserta-name{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.04em;margin-bottom:2px}
+.peserta-full{font-size:11px;color:var(--txt3)}
+.pstat{background:var(--bg3);border-radius:var(--r);padding:7px;text-align:center}
+.pstat-num{font-family:'Bebas Neue',sans-serif;font-size:20px;line-height:1;margin-bottom:2px}
+.pstat-label{font-size:9px;color:var(--txt3);letter-spacing:.07em;text-transform:uppercase}
+
+footer{background:var(--bg1);border-top:3px solid var(--border);padding:36px 20px;text-align:center}
+.foot-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.09em;margin-bottom:6px}
+.foot-tag{font-size:12px;color:var(--txt3);font-style:italic;margin-bottom:18px}
+.foot-links{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+.foot-links button{font-size:11px;color:var(--txt3);background:none;border:none;cursor:pointer;letter-spacing:.07em;text-transform:uppercase;font-weight:600;transition:color .2s}
+.foot-links button:hover{color:var(--cyan)}
+.foot-copy{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--txt3);letter-spacing:.07em}
+
+.empty{text-align:center;padding:44px 0;color:var(--txt3);font-size:13px}
+/* SPONSOR PAGE */
+.sp-tier-label{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:5px 14px;border-radius:4px;border:1.5px solid;margin-bottom:16px}
+.tier-gold{background:rgba(255,230,0,.1);color:var(--yellow);border-color:rgba(255,230,0,.3)}
+.tier-silver{background:rgba(192,192,192,.1);color:#C0C0C0;border-color:rgba(192,192,192,.25)}
+.tier-bronze{background:rgba(205,139,74,.1);color:#CD8B4A;border-color:rgba(205,139,74,.25)}
+.tier-media{background:rgba(0,245,255,.08);color:var(--cyan);border-color:rgba(0,245,255,.2)}
+.sp-card{padding:24px 20px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer;transition:all .25s}
+.sp-card:hover{transform:translateY(-4px)}
+.sp-logo-box{border-radius:var(--r2);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;border:2px solid;flex-shrink:0;transition:all .25s}
+.sp-card:hover .sp-logo-box{filter:brightness(1.2)}
+.sp-name{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.06em}
+.sp-cat{font-size:11px;color:var(--txt3);font-weight:500}
+.sp-benefit{background:var(--bg3);border-radius:var(--r);padding:8px 12px;font-size:10px;color:var(--txt2);text-align:left;width:100%;line-height:1.6}
+.sp-stat-row{display:flex;gap:0;border:2px solid var(--border);border-radius:var(--r2);overflow:hidden;background:var(--bg2);margin-bottom:24px}
+.sp-stat{flex:1;padding:16px 10px;text-align:center;border-right:2px solid var(--border)}
+.sp-stat:last-child{border-right:none}
+.sp-stat-num{font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--cyan);line-height:1;margin-bottom:3px}
+.sp-stat-label{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.14em;color:var(--txt3);text-transform:uppercase}
+@media(max-width:640px){.sp-stat-num{font-size:20px}.sp-stat{padding:10px 6px}}
+
+/* DATA STATUS BANNER */
+.data-banner{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 16px;border-radius:var(--r);
+  font-size:12px;font-weight:600;margin-bottom:16px;
+  border:1.5px solid;
+}
+.data-banner.live{background:rgba(0,255,136,.06);border-color:rgba(0,255,136,.25);color:#00FF88}
+.data-banner.error{background:rgba(255,45,85,.06);border-color:rgba(255,45,85,.25);color:var(--red);line-height:1.6}
+.data-banner.loading{background:rgba(0,245,255,.06);border-color:rgba(0,245,255,.25);color:var(--cyan);animation:loadingPulse 1.5s ease-in-out infinite}
+@keyframes loadingPulse{0%,100%{opacity:1}50%{opacity:.5}}
+.spin-icon{display:inline-block;animation:spin 1s linear infinite}
+
+/* ── PAGE TRANSITIONS ── */
+.page{opacity:0;transform:translateY(8px);transition:opacity .22s ease,transform .22s ease}
+.page.on{opacity:1;transform:translateY(0)}
+.page.out{opacity:0;transform:translateY(-6px);pointer-events:none}
+
+/* ── SCROLL TO TOP ── */
+#scroll-top{
+  position:fixed;bottom:28px;right:24px;z-index:800;
+  width:42px;height:42px;
+  background:var(--bg3);
+  border:2px solid var(--border);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  font-size:18px;
+  color:var(--cyan);
+  box-shadow:0 4px 20px rgba(0,0,0,.4);
+  opacity:0;pointer-events:none;
+  transition:all .25s;
+  transform:translateY(10px);
+}
+#scroll-top.show{opacity:1;pointer-events:auto;transform:translateY(0)}
+#scroll-top:hover{background:var(--bg4);border-color:var(--cyan);box-shadow:var(--glow-c);transform:translateY(-2px)}
+
+/* ── TOAST NOTIFICATIONS ── */
+#toast-container{
+  position:fixed;bottom:80px;right:24px;z-index:900;
+  display:flex;flex-direction:column;gap:8px;
+  pointer-events:none;
+}
+.toast{
+  background:var(--bg3);
+  border:1.5px solid var(--border);
+  border-radius:var(--r2);
+  padding:12px 16px;
+  display:flex;align-items:center;gap:10px;
+  font-size:13px;font-weight:600;
+  color:var(--txt1);
+  box-shadow:0 8px 32px rgba(0,0,0,.5);
+  opacity:0;transform:translateX(20px);
+  transition:all .3s cubic-bezier(.34,1.56,.64,1);
+  pointer-events:auto;
+  min-width:220px;max-width:320px;
+  border-left-width:3px;
+}
+.toast.show{opacity:1;transform:translateX(0)}
+.toast.hide{opacity:0;transform:translateX(20px);transition:all .2s ease}
+.toast-icon{font-size:18px;flex-shrink:0}
+.toast-body{display:flex;flex-direction:column;gap:2px}
+.toast-title{font-size:12px;font-weight:700;color:var(--txt1)}
+.toast-desc{font-size:11px;font-weight:400;color:var(--txt2)}
+
+/* ── SKELETON LOADER ── */
+.skeleton{
+  background:linear-gradient(90deg,var(--bg2) 25%,var(--bg3) 50%,var(--bg2) 75%);
+  background-size:200% 100%;
+  animation:shimmer 1.5s infinite;
+  border-radius:var(--r);
+}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="loader-ring"></div>
+  <div class="loader-title">THE ARENA</div>
+  <div class="loader-sub">SAAEC 2026 — Memuat Data Live...</div>
+</div>
+
+<canvas id="bg-canvas"></canvas>
+
+<nav id="nav">
+  <div class="nav-brand" onclick="goTo('landing')">
+    <div class="nav-logo-box"><span>SA</span></div>
+    <div class="nav-wordmark">
+      <span class="nav-wordmark-top">SAAEC 2026</span>
+      <span class="nav-wordmark-bot">The Arena · FEB Unpad</span>
+    </div>
+  </div>
+  <button class="nav-ham" id="ham" onclick="toggleNav()" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links" id="nav-links">
+    <li><button data-pg="landing" onclick="goTo('landing')" class="active">Beranda</button></li>
+    <li><button data-pg="dashboard" onclick="goTo('dashboard')">Dashboard</button></li>
+    <li><button data-pg="leaderboard" onclick="goTo('leaderboard')">Klasemen</button></li>
+    <li><button data-pg="cabang" onclick="goTo('cabang')">Cabang</button></li>
+    <li><button data-pg="peserta" onclick="goTo('peserta')">Peserta</button></li>
+    <li><button data-pg="jadwal" onclick="goTo('jadwal')">Jadwal</button></li>
+    <li><button data-pg="sponsor" onclick="goTo('sponsor')" style="color:var(--yellow)">★ Sponsor</button></li>
+  </ul>
+</nav>
+
+<div style="position:fixed;top:58px;left:0;right:0;z-index:999">
+  <div class="ticker-wrap"><div class="ticker-inner" id="ticker-inner"></div></div>
+</div>
+
+<!-- SCROLL TO TOP -->
+<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">↑</button>
+
+<!-- TOAST CONTAINER -->
+<div id="toast-container"></div>
+
+<div style="padding-top:32px">
+
+<!-- LANDING -->
+<div class="page on" id="page-landing">
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-grid-lines"></div>
+    <div class="hero-corner tl"></div><div class="hero-corner tr"></div>
+    <div class="hero-corner bl"></div><div class="hero-corner br"></div>
+    <div class="hero-event-tag">Event Sedang Berlangsung</div>
+    <h1 class="hero-main-title"><span class="line1">THE</span><span class="line2">ARENA</span></h1>
+    <div class="hero-year">S · A · A · E · C &nbsp; 2 0 2 6</div>
+    <p class="hero-tagline">
+      <strong>"ENTER DIFFERENT. LEAVE AS ONE."</strong><br/>
+      <span style="font-size:clamp(11px,2vw,15px)">Sport · E-Sport · Art · Academic — FEB Universitas Padjadjaran</span>
+    </p>
+    <div class="hero-cta">
+      <button class="btn btn-yellow" onclick="goTo('leaderboard')">⚡ Lihat Klasemen</button>
+      <button class="btn btn-outline" onclick="goTo('dashboard')">📊 Dashboard</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-num" id="hs1">0</div><div class="hstat-label">Total Peserta</div></div>
+      <div class="hstat"><div class="hstat-num" id="hs2">0</div><div class="hstat-label">Cabang Lomba</div></div>
+      <div class="hstat"><div class="hstat-num" id="hs3">0</div><div class="hstat-label">Pertandingan</div></div>
+      <div class="hstat"><div class="hstat-num" id="hs4">0</div><div class="hstat-label">Delegasi</div></div>
+      <div class="hstat"><div class="hstat-num" id="hs5">0</div><div class="hstat-label">Jurusan</div></div>
+    </div>
+    <div class="scroll-hint"><div class="scroll-mouse"></div><div class="scroll-label">Scroll</div></div>
+  </section>
+
+  <section class="countdown-section">
+    <div class="cd-title">⏳ &nbsp; Menuju Closing Ceremony — 13 Juni 2026</div>
+    <div class="cd-boxes">
+      <div class="cd-box"><div class="cd-num" id="cd-d">00</div><div class="cd-label">Hari</div></div>
+      <div class="cd-box"><div class="cd-num" id="cd-h">00</div><div class="cd-label">Jam</div></div>
+      <div class="cd-box"><div class="cd-num" id="cd-m">00</div><div class="cd-label">Menit</div></div>
+      <div class="cd-box"><div class="cd-num" id="cd-s">00</div><div class="cd-label">Detik</div></div>
+    </div>
+  </section>
+
+  <section class="cat-section">
+    <div class="wrap">
+      <div style="text-align:center;margin-bottom:36px">
+        <div class="sec-label">Divisi Kompetisi</div>
+        <h2 class="sec-title">4 <span class="hl">Arena</span> Bertarung</h2>
+      </div>
+      <div class="g4">
+        <div class="card cat-card cat-s" onclick="goTo('cabang');setCabFilter('sport')">
+          <span class="cat-icon">🏆</span><div class="cat-name">SPORT</div><div class="cat-sub">12 Cabang · 100 Pendaftar</div><div class="cat-bar"></div>
+        </div>
+        <div class="card cat-card cat-e" onclick="goTo('cabang');setCabFilter('esport')">
+          <span class="cat-icon">🎮</span><div class="cat-name">E-SPORT</div><div class="cat-sub">4 Cabang · 50 Pendaftar</div><div class="cat-bar"></div>
+        </div>
+        <div class="card cat-card cat-a" onclick="goTo('cabang');setCabFilter('art')">
+          <span class="cat-icon">🎨</span><div class="cat-name">ARTS</div><div class="cat-sub">5 Cabang · 32 Pendaftar</div><div class="cat-bar"></div>
+        </div>
+        <div class="card cat-card cat-ac" onclick="goTo('cabang');setCabFilter('academic')">
+          <span class="cat-icon">📚</span><div class="cat-name">ACADEMIC</div><div class="cat-sub">2 Cabang · 11 Pendaftar</div><div class="cat-bar"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:60px 0" style="background:var(--bg1)">
+    <div class="wrap">
+      <div style="text-align:center;margin-bottom:36px">
+        <div class="sec-label">Jadwal Resmi</div>
+        <h2 class="sec-title">Event <span class="hl">Timeline</span></h2>
+      </div>
+      <div class="tl-wrap" id="tl-container"></div>
+    </div>
+  </section>
+
+  <section style="padding:90px 20px;text-align:center;background:linear-gradient(135deg,var(--bg) 0%,var(--blue2) 50%,var(--bg) 100%);border-top:3px solid var(--blue);border-bottom:3px solid var(--blue)">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.28em;color:rgba(255,255,255,.3);text-transform:uppercase;margin-bottom:18px">// Battle Cry</div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,7vw,90px);line-height:.9;letter-spacing:.03em">
+      <div style="color:var(--cream)">ENTER</div>
+      <div style="color:var(--yellow);text-shadow:var(--glow-y);-webkit-text-stroke:2px var(--yellow)">DIFFERENT.</div>
+      <div style="color:var(--cream)">LEAVE AS</div>
+      <div style="color:var(--cyan);-webkit-text-stroke:2px var(--cyan);filter:drop-shadow(0 0 18px rgba(0,245,255,.5))">ONE.</div>
+    </div>
+    <p style="margin-top:28px;font-size:clamp(13px,2vw,16px);color:rgba(255,255,255,.5);max-width:520px;margin-left:auto;margin-right:auto;line-height:1.7">
+      SAAEC bukan sekadar kompetisi. Ini arena di mana setiap jurusan membuktikan diri — dan bersama, kita keluar sebagai satu.
+    </p>
+    <div style="margin-top:32px;display:flex;gap:13px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-yellow btn-sm" onclick="goTo('leaderboard')">Lihat Klasemen</button>
+      <button class="btn btn-outline btn-sm" onclick="goTo('peserta')">Daftar Peserta</button>
+    </div>
+  </section>
+
+  <footer>
+    <div class="foot-logo">SAAEC 2026 — THE ARENA</div>
+    <div class="foot-tag">"Enter Different. Leave As One."</div>
+    <div class="foot-links">
+      <button onclick="goTo('landing')">Beranda</button>
+      <button onclick="goTo('dashboard')">Dashboard</button>
+      <button onclick="goTo('leaderboard')">Klasemen</button>
+      <button onclick="goTo('cabang')">Cabang</button>
+      <button onclick="goTo('peserta')">Peserta</button>
+      <button onclick="goTo('jadwal')">Jadwal</button>
+      <button onclick="goTo('sponsor')">Sponsor</button>
+    </div>
+    <div class="foot-copy">© 2026 SAAEC · FEB Universitas Padjadjaran · All Rights Reserved</div>
+  </footer>
+</div>
+
+<!-- DASHBOARD -->
+<div class="page" id="page-dashboard">
+  <div class="dash-header">
+    <div class="wrap">
+      <div class="sec-label">Control Room</div>
+      <h2 class="sec-title" style="font-size:32px">Event <span class="hl">Dashboard</span></h2>
+      <p style="font-size:12px;color:var(--txt2);margin-top:6px">SAAEC 2026 · 15 Mei – 13 Juni · FEB Unpad</p>
+    </div>
+  </div>
+  <div class="ticker-wrap" style="border-top:none"><div class="ticker-inner" id="dash-ticker"></div></div>
+  <div class="wrap" style="padding-top:24px;padding-bottom:56px">
+    <div id="data-status"></div>
+    <div class="kpi-grid" style="margin-bottom:22px" id="kpi-grid"></div>
+    <div class="g2" style="margin-bottom:22px">
+      <div class="card prog-card">
+        <div class="sec-label" style="margin-bottom:12px">Progress Event</div>
+        <div id="prog-phases"></div>
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+          <div style="font-size:12px;font-weight:600;color:var(--txt2);margin-bottom:8px">Status Saat Ini</div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span class="badge b-live">LIVE</span>
+            <span style="font-size:13px;font-weight:600">Main Event Berlangsung</span>
+          </div>
+          <div style="font-size:11px;color:var(--txt3);margin-top:4px;font-family:'JetBrains Mono',monospace">16 Mei – 12 Juni 2026</div>
+        </div>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden">
+        <div style="padding:15px 18px;border-bottom:2px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+          <div class="sec-label" style="margin-bottom:0">Delegasi Per HIMA</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--yellow)">193</div>
+        </div>
+        <div id="deleg-list"></div>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:22px">
+      <div style="padding:15px 18px;border-bottom:2px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+        <div class="sec-label" style="margin-bottom:0">Klasemen Sementara</div>
+        <button class="btn btn-yellow btn-sm" onclick="goTo('leaderboard')">Full Table →</button>
+      </div>
+      <div id="dash-standings"></div>
+    </div>
+    <div class="sec-label" style="margin-bottom:12px">Breakdown Kategori</div>
+    <div class="g4" id="cat-breakdown"></div>
+  </div>
+</div>
+
+<!-- LEADERBOARD -->
+<div class="page" id="page-leaderboard">
+  <div style="padding:36px 0 0">
+    <div class="wrap" style="text-align:center">
+      <div class="sec-label">Klasemen Resmi</div>
+      <h2 class="sec-title">Juara <span class="hl">Umum</span></h2>
+      <p style="font-size:13px;color:var(--txt2);margin-top:8px">Sistem poin berdasarkan kategori & ukuran tim resmi SAAEC 2026</p>
+    </div>
+    <div class="podium" id="podium"></div>
+  </div>
+  <div class="wrap" style="padding:24px 20px 56px">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px">
+      <div class="tabs" id="lb-tabs">
+        <button class="tab on" onclick="setLbTab('overall',this)">Juara Umum</button>
+        <button class="tab" onclick="setLbTab('sport',this)">Sport</button>
+        <button class="tab" onclick="setLbTab('esport',this)">E-Sport</button>
+        <button class="tab" onclick="setLbTab('artac',this)">Art & Academic</button>
+      </div>
+      <div style="font-size:10px;color:var(--txt3);font-family:'JetBrains Mono',monospace">🥇 EMAS · 🥈 PERAK · 🥉 PERUNGGU</div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;margin-bottom:24px">
+      <div class="lb-row" style="border-bottom:2px solid var(--border);min-height:40px">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--txt3);letter-spacing:.15em">#</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--txt3);letter-spacing:.15em">JURUSAN</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--txt3);text-align:right;letter-spacing:.15em">MEDAL</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--txt3);text-align:right;letter-spacing:.15em" class="lb-w-col">DLG</div>
+        <div class="lb-bar-col"></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--txt3);text-align:right;letter-spacing:.15em">POIN</div>
+      </div>
+      <div id="lb-table"></div>
+    </div>
+    <div class="sec-label" style="margin-bottom:12px">Sistem Poin Resmi SAAEC</div>
+    <div class="g2">
+      <div class="score-sys">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.07em;margin-bottom:10px;color:var(--yellow)">⚽ SPORT & E-SPORT</div>
+        <table>
+          <tr><th>Tim</th><th>🥇</th><th>🥈</th><th>🥉</th></tr>
+          <tr><td>1–2 Orang</td><td style="color:var(--yellow);font-weight:700">3</td><td style="color:#C0C0C0;font-weight:700">2</td><td style="color:#CD8B4A;font-weight:700">1</td></tr>
+          <tr><td>3–7 Orang</td><td style="color:var(--yellow);font-weight:700">6</td><td style="color:#C0C0C0;font-weight:700">4</td><td style="color:#CD8B4A;font-weight:700">2</td></tr>
+          <tr><td>8–12 Orang</td><td style="color:var(--yellow);font-weight:700">15</td><td style="color:#C0C0C0;font-weight:700">10</td><td style="color:#CD8B4A;font-weight:700">5</td></tr>
+        </table>
+      </div>
+      <div class="score-sys">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.07em;margin-bottom:10px;color:var(--red)">🎨 ART & ACADEMIC</div>
+        <table>
+          <tr><th>Tim</th><th>🥇</th><th>🥈</th><th>🥉</th></tr>
+          <tr><td>1–2 Orang</td><td style="color:var(--yellow);font-weight:700">3</td><td style="color:#C0C0C0;font-weight:700">2</td><td style="color:#CD8B4A;font-weight:700">1</td></tr>
+          <tr><td>3–7 Orang</td><td style="color:var(--yellow);font-weight:700">6</td><td style="color:#C0C0C0;font-weight:700">4</td><td style="color:#CD8B4A;font-weight:700">2</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CABANG -->
+<div class="page" id="page-cabang">
+  <div style="padding:36px 0 24px">
+    <div class="wrap" style="text-align:center">
+      <div class="sec-label">Kompetisi</div>
+      <h2 class="sec-title">Cabang <span class="hl">Lomba</span></h2>
+    </div>
+  </div>
+  <div class="wrap" style="padding-bottom:56px">
+    <div style="display:flex;gap:12px;margin-bottom:18px;flex-wrap:wrap">
+      <div class="searchbar" style="flex:1;min-width:200px">
+        <span style="color:var(--txt3)">🔍</span>
+        <input type="text" id="cab-search" placeholder="Cari cabang..." oninput="renderCabang()"/>
+      </div>
+      <select class="sel" id="cab-filter" onchange="renderCabang()">
+        <option value="all">Semua Kategori</option>
+        <option value="sport">Sport</option>
+        <option value="esport">E-Sport</option>
+        <option value="art">Art</option>
+        <option value="academic">Academic</option>
+      </select>
+      <select class="sel" id="cab-status" onchange="renderCabang()">
+        <option value="all">Semua Status</option>
+        <option value="done">Selesai</option>
+        <option value="ongoing">Berlangsung</option>
+        <option value="upcoming">Upcoming</option>
+      </select>
+    </div>
+    <div id="cabang-stat-row" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px"></div>
+    <div id="cabang-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px"></div>
+  </div>
+</div>
+
+<!-- PESERTA -->
+<div class="page" id="page-peserta">
+  <div style="padding:36px 0 24px">
+    <div class="wrap" style="text-align:center">
+      <div class="sec-label">Kontingen</div>
+      <h2 class="sec-title">Daftar <span class="hl">Peserta</span></h2>
+      <p style="font-size:13px;color:var(--txt2);margin-top:8px">5 Jurusan · FEB Universitas Padjadjaran</p>
+    </div>
+  </div>
+  <div class="wrap" style="padding-bottom:56px">
+    <div style="display:flex;gap:12px;margin-bottom:18px;flex-wrap:wrap">
+      <div class="searchbar" style="flex:1;min-width:200px">
+        <span style="color:var(--txt3)">🔍</span>
+        <input type="text" id="ps-search" placeholder="Cari jurusan..." oninput="renderPeserta()"/>
+      </div>
+      <select class="sel" id="ps-sort" onchange="renderPeserta()">
+        <option value="poin">Sort: Poin</option>
+        <option value="delegasi">Sort: Delegasi</option>
+        <option value="name">Sort: A–Z</option>
+        <option value="emas">Sort: Emas</option>
+      </select>
+    </div>
+    <div class="g3" id="peserta-grid"></div>
+  </div>
+</div>
+
+<!-- =========================================================
+     JADWAL PERTANDINGAN
+     ========================================================= -->
+<div class="page" id="page-jadwal">
+  <div style="background:linear-gradient(180deg,var(--bg1) 0%,var(--bg) 100%);padding:40px 0 28px;border-bottom:2px solid var(--border)">
+    <div class="wrap" style="text-align:center">
+      <div class="sec-label">Timeline Kompetisi</div>
+      <h2 class="sec-title">Jadwal <span class="hl">Pertandingan</span></h2>
+      <p style="font-size:13px;color:var(--txt2);margin-top:8px">SAAEC 2026 · 15 Mei – 13 Juni · FEB Unpad</p>
+    </div>
+  </div>
+
+  <div class="wrap" style="padding:28px 20px 64px">
+    <!-- FILTER BAR -->
+    <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;align-items:center">
+      <div class="searchbar" style="flex:1;min-width:180px">
+        <span style="color:var(--txt3)">🔍</span>
+        <input type="text" id="jdwl-search" placeholder="Cari cabang, venue, jurusan..." oninput="renderJadwal()"/>
+      </div>
+      <select class="sel" id="jdwl-cat" onchange="renderJadwal()">
+        <option value="all">Semua Kategori</option>
+        <option value="sport">Sport</option>
+        <option value="esport">E-Sport</option>
+        <option value="art">Art</option>
+        <option value="academic">Academic</option>
+        <option value="special">Special</option>
+      </select>
+      <select class="sel" id="jdwl-status" onchange="renderJadwal()">
+        <option value="all">Semua Status</option>
+        <option value="upcoming">Upcoming</option>
+        <option value="berlangsung">Berlangsung</option>
+        <option value="selesai">Selesai</option>
+      </select>
+      <select class="sel" id="jdwl-fase" onchange="renderJadwal()">
+        <option value="all">Semua Fase</option>
+        <option value="Penyisihan">Penyisihan</option>
+        <option value="Semifinal">Semifinal</option>
+        <option value="Final">Final</option>
+        <option value="Babak Utama">Babak Utama</option>
+        <option value="Ceremony">Ceremony</option>
+      </select>
+    </div>
+
+    <!-- VIEW TOGGLE -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+      <div class="tabs" id="jdwl-view-tabs">
+        <button class="tab on" onclick="setJadwalView('hari',this)">📅 Per Hari</button>
+        <button class="tab" onclick="setJadwalView('tabel',this)">📋 Tabel</button>
+        <button class="tab" onclick="setJadwalView('bracket',this)">🏆 Bracket</button>
+      </div>
+      <div id="jdwl-summary" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--txt3)"></div>
+    </div>
+
+    <!-- CONTENT AREA -->
+    <div id="jadwal-content"></div>
+  </div>
+</div>
+
+<!-- =========================================================
+     SPONSOR
+     ========================================================= -->
+<div class="page" id="page-sponsor">
+
+  <!-- HERO -->
+  <div style="background:linear-gradient(180deg,var(--bg1) 0%,var(--bg) 100%);padding:48px 0 32px;border-bottom:2px solid var(--border);text-align:center">
+    <div class="wrap">
+      <div class="sec-label">Official Partners · SAAEC 2026</div>
+      <h2 class="sec-title">Our <span class="hl">Sponsors</span></h2>
+      <p style="font-size:14px;color:var(--txt2);margin-top:8px;margin-bottom:28px">
+        Terima kasih kepada seluruh mitra yang membuat THE ARENA 2026 terwujud.
+      </p>
+      <div class="sp-stat-row" style="max-width:760px;margin:0 auto">
+        <div class="sp-stat"><div class="sp-stat-num">648</div><div class="sp-stat-label">Peserta</div></div>
+        <div class="sp-stat"><div class="sp-stat-num">400+</div><div class="sp-stat-label">Mahasiswa</div></div>
+        <div class="sp-stat"><div class="sp-stat-num">23</div><div class="sp-stat-label">Cabang Lomba</div></div>
+        <div class="sp-stat"><div class="sp-stat-num">5</div><div class="sp-stat-label">Jurusan</div></div>
+        <div class="sp-stat"><div class="sp-stat-num">1K+</div><div class="sp-stat-label">Est. Penonton</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap" style="padding:40px 20px 64px">
+
+    <!-- MANFAAT KERJASAMA -->
+    <div style="margin-bottom:52px">
+      <div style="text-align:center;margin-bottom:28px">
+        <div class="sec-label" style="justify-content:center">Mengapa Bergabung?</div>
+        <h3 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,4vw,36px);letter-spacing:.05em">
+          Manfaat <span style="color:var(--yellow)">Kerjasama</span>
+        </h3>
+      </div>
+      <div class="g4" style="gap:12px">
+        <div class="card" style="padding:20px;border-top:3px solid var(--yellow)">
+          <div style="font-size:26px;margin-bottom:10px">📢</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--yellow);letter-spacing:.05em;margin-bottom:8px">Skala Acara Besar</div>
+          <div style="font-size:12px;color:var(--txt2);line-height:1.7">Diikuti 400+ mahasiswa, acara tahunan rutin yang menjangkau banyak orang dengan dampak luas di lingkungan FEB Unpad.</div>
+        </div>
+        <div class="card" style="padding:20px;border-top:3px solid var(--cyan)">
+          <div style="font-size:26px;margin-bottom:10px">🏆</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--cyan);letter-spacing:.05em;margin-bottom:8px">Bidang Beragam</div>
+          <div style="font-size:12px;color:var(--txt2);line-height:1.7">Sport, e-sport, art, dan academic — futsal, basket, solo vokal, cerdas cermat, dan 19 cabang lainnya menarik berbagai kalangan.</div>
+        </div>
+        <div class="card" style="padding:20px;border-top:3px solid var(--red)">
+          <div style="font-size:26px;margin-bottom:10px">🎯</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--red);letter-spacing:.05em;margin-bottom:8px">Target Pasar Tepat</div>
+          <div style="font-size:12px;color:var(--txt2);line-height:1.7">Mahasiswa FEB Unpad adalah pasar potensial bagi perusahaan yang ingin memasarkan produk atau jasa kepada kalangan muda terdidik.</div>
+        </div>
+        <div class="card" style="padding:20px;border-top:3px solid #AA00FF">
+          <div style="font-size:26px;margin-bottom:10px">🚀</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#AA00FF;letter-spacing:.05em;margin-bottom:8px">Potensi Branding</div>
+          <div style="font-size:12px;color:var(--txt2);line-height:1.7">Media promosi brand sponsor dengan awareness tinggi. Pilih cabang yang sesuai nilai dan identitas merek — sponsor dapat menjangkau audiens spesifik.</div>
+        </div>
+      </div>
+      <!-- row 2 manfaat -->
+      <div class="g3" style="gap:12px;margin-top:12px">
+        <div class="card" style="padding:18px;border-left:3px solid var(--yellow);border-radius:var(--r)">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:var(--yellow);letter-spacing:.05em;margin-bottom:6px">🤝 Koneksi Mahasiswa FEB Unpad</div>
+          <div style="font-size:12px;color:var(--txt2);line-height:1.6">Mempererat hubungan dengan mahasiswa FEB Unpad — pasar potensial untuk brand masa depan. Membantu membangun brand loyalty dan customer engagement.</div>
+        </div>
+        <div class="card" style="padding:18px;border-left:3px solid var(--cyan);border-radius:var(--r)">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:var(--cyan);letter-spacing:.05em;margin-bottom:6px">🌐 Jaringan & Kesempatan Bisnis</div>
+          <div style="font-size:12px;color:var(--txt2);line-height:1.6">Memperluas jaringan dengan berinteraksi bersama sesama sponsor, alumni, dan mahasiswa yang terlibat dalam acara ini.</div>
+        </div>
+        <div class="card" style="padding:18px;border-left:3px solid #00E676;border-radius:var(--r)">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:#00E676;letter-spacing:.05em;margin-bottom:6px">📚 Pengembangan Mahasiswa</div>
+          <div style="font-size:12px;color:var(--txt2);line-height:1.6">Terlibat dalam pendidikan dan pengembangan bakat mahasiswa di bidang yang relevan — membantu melahirkan talenta-talenta baru.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CURRENT SPONSORS -->
+    <div style="margin-bottom:44px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+        <div class="sp-tier-label" style="background:rgba(255,230,0,.1);color:var(--yellow);border-color:rgba(255,230,0,.3)">🌟 Main Sponsor</div>
+        <div style="flex:1;height:1px;background:linear-gradient(90deg,rgba(255,230,0,.4),transparent)"></div>
+      </div>
+      <div class="g2" id="sp-gold"></div>
+    </div>
+    <div style="margin-bottom:44px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+        <div class="sp-tier-label tier-silver">🏆 Champion Sponsor</div>
+        <div style="flex:1;height:1px;background:linear-gradient(90deg,rgba(192,192,192,.25),transparent)"></div>
+      </div>
+      <div class="g3" id="sp-silver"></div>
+    </div>
+    <div style="margin-bottom:44px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+        <div class="sp-tier-label tier-bronze">🤝 Support Sponsor</div>
+        <div style="flex:1;height:1px;background:linear-gradient(90deg,rgba(205,139,74,.25),transparent)"></div>
+      </div>
+      <div class="g4" id="sp-bronze"></div>
+    </div>
+    <div style="margin-bottom:52px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+        <div class="sp-tier-label tier-media">📡 Media Partner</div>
+        <div style="flex:1;height:1px;background:linear-gradient(90deg,rgba(0,245,255,.2),transparent)"></div>
+      </div>
+      <div class="g4" id="sp-media"></div>
+    </div>
+
+    <!-- PAKET SPONSORSHIP RESMI -->
+    <div style="text-align:center;margin-bottom:28px">
+      <div class="sec-label" style="justify-content:center">Proposal Resmi</div>
+      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,4vw,38px);letter-spacing:.05em">
+        Paket <span style="color:var(--yellow)">Sponsorship</span>
+      </h3>
+      <p style="font-size:13px;color:var(--txt2);margin-top:8px">Pilih paket yang sesuai dengan kebutuhan dan anggaran brand Anda.</p>
+    </div>
+
+    <!-- 4 PACKAGE CARDS -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:40px">
+
+      <!-- PARTNER -->
+      <div class="card" style="padding:0;overflow:hidden;border-top:4px solid #CD8B4A">
+        <div style="background:rgba(205,139,74,.12);padding:18px 20px 14px;border-bottom:1px solid var(--border)">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#CD8B4A;letter-spacing:.18em;text-transform:uppercase;margin-bottom:6px">PARTNER PACKAGE</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:#CD8B4A;line-height:1">Rp 1.000.000</div>
+        </div>
+        <div style="padding:18px 20px">
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+            <li style="display:flex;gap:8px;font-size:12px;color:var(--txt2);line-height:1.5">
+              <span style="color:#CD8B4A;flex-shrink:0">✓</span>
+              Logo kecil di semua media promosi (poster, feed IG, spanduk, kaos panitia)
+            </li>
+            <li style="display:flex;gap:8px;font-size:12px;color:var(--txt2)">
+              <span style="color:#CD8B4A;flex-shrink:0">✓</span>1x Instagram story mention
+            </li>
+            <li style="display:flex;gap:8px;font-size:12px;color:var(--txt2)">
+              <span style="color:#CD8B4A;flex-shrink:0">✓</span>Sertifikat sponsor digital
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- SUPPORT -->
+      <div class="card" style="padding:0;overflow:hidden;border-top:4px solid var(--cyan)">
+        <div style="background:rgba(0,245,255,.08);padding:18px 20px 14px;border-bottom:1px solid var(--border)">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--cyan);letter-spacing:.18em;text-transform:uppercase;margin-bottom:6px">SUPPORT PACKAGE</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--cyan);line-height:1">Rp 3.000.000</div>
+        </div>
+        <div style="padding:18px 20px">
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+            <li style="display:flex;gap:8px;font-size:12px;color:var(--txt2);line-height:1.5">
+              <span style="color:var(--cyan);flex-shrink:0">✓</span>
+              Logo sedang di semua media promosi (poster, feed IG, spanduk, kaos panitia)
+            </li>
+            <li style="display:flex;gap:8px;font-size:12px;color:var(--txt2)">
+              <span style="color:var(--cyan);flex-shrink:0">✓</span>1x IG feed post + 1 story
+            </li>
+            <li style="display:flex;gap:8px;font-size:12px;color:var(--txt2)">
+              <span style="color:var(--cyan);flex-shrink:0">✓</span>Booth kecil di opening ceremony
+            </li>
+            <li style="display:flex;gap:8px;font-size:12px;color:var(--txt2)">
+              <span style="color:var(--cyan);flex-shrink:0">✓</span>Mention saat opening
+            </li>
+            <li style="display:flex;gap:8px;font-size:12px;color:var(--txt2)">
+              <span style="color:var(--cyan);flex-shrink:0">✓</span>Logo di sertifikat pemenang
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- CHAMPION -->
+      <div class="card" style="padding:0;overflow:hidden;border-top:4px solid var(--yellow);box-shadow:0 0 0 1px rgba(255,230,0,.15)">
+        <div style="background:rgba(255,230,0,.1);padding:18px 20px 14px;border-bottom:1px solid var(--border);position:relative">
+          <div style="position:absolute;top:12px;right:14px;background:var(--yellow);color:#000;font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700;padding:3px 8px;border-radius:3px;letter-spacing:.1em">POPULAR</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--yellow);letter-spacing:.18em;text-transform:uppercase;margin-bottom:6px">CHAMPION PACKAGE</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--yellow);line-height:1">Rp 5.000.000</div>
+        </div>
+        <div style="padding:18px 20px">
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+            <li style="display:flex;gap:8px;font-size:12px;color:var(--txt2);line-height:1.5">
+              <span style="color:var(--yellow);flex-shrink:0">✓</span>
+              Logo besar di semua media promosi (poster, feed IG, spanduk, kaos panitia)
+            </li>
+            <li style="display:flex;gap:8px;font-size:12px;color:var(--txt2)">
+              <span style="color:var(--yellow);flex-shrink:0">✓</span>2x IG feed post + 2 stories
+            </li>
+            <li style="display:flex;gap:8px;font-size:12px;color:var(--txt2)">
+              <span style="color:var(--yellow);flex-shrink:0">✓</span>Booth besar di opening &amp; closing ceremony
+            </li>
+            <li style="display:flex;gap:8px;font-size:12px;color:var(--txt2)">
+              <span style="color:var(--yellow);flex-shrink:0">✓</span>MC ad-libs saat opening &amp; closing
+            </li>
+            <li style="display:flex;gap:8px;font-size:12px;color:var(--txt2)">
+              <span style="color:var(--yellow);flex-shrink:0">✓</span>Logo di sertifikat pemenang
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- MAIN SPONSOR -->
+      <div class="card" style="padding:0;overflow:hidden;border-top:4px solid var(--red);background:linear-gradient(180deg,rgba(255,45,85,.05) 0%,var(--bg2) 40%)">
+        <div style="background:rgba(255,45,85,.12);padding:18px 20px 14px;border-bottom:1px solid var(--border)">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--red);letter-spacing:.18em;text-transform:uppercase;margin-bottom:6px">MAIN SPONSOR</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--red);line-height:1">Rp 10.000.000</div>
+        </div>
+        <div style="padding:18px 20px">
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+            <li style="display:flex;gap:8px;font-size:12px;color:var(--txt2);line-height:1.5">
+              <span style="color:var(--red);flex-shrink:0">✓</span>
+              "SAAEC 2026 presented by [Sponsor]"
+            </li>
+            <li style="display:flex;gap:8px;font-size:12px;color:var(--txt2);line-height:1.5">
+              <span style="color:var(--red);flex-shrink:0">✓</span>
+              Logo dominan di semua media (backdrop, kaos, e-certificates, TikTok watermark)
+            </li>
+            <li style="display:flex;gap:8px;font-size:12px;color:var(--txt2)">
+              <span style="color:var(--red);flex-shrink:0">✓</span>3x feed + 3 stories + 1 reels bersama sponsor
+            </li>
+            <li style="display:flex;gap:8px;font-size:12px;color:var(--txt2)">
+              <span style="color:var(--red);flex-shrink:0">✓</span>Hak eksklusif konten promosi di panggung/venue
+            </li>
+            <li style="display:flex;gap:8px;font-size:12px;color:var(--txt2)">
+              <span style="color:var(--red);flex-shrink:0">✓</span>Promo produk dalam kompetisi
+            </li>
+            <li style="display:flex;gap:8px;font-size:12px;color:var(--txt2)">
+              <span style="color:var(--red);flex-shrink:0">✓</span>MC ad-libs di seluruh acara utama
+            </li>
+            <li style="display:flex;gap:8px;font-size:12px;color:var(--txt2)">
+              <span style="color:var(--red);flex-shrink:0">✓</span>Booth + spesial request dari sponsor
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CTA -->
+    <div style="background:linear-gradient(135deg,rgba(0,51,255,.18) 0%,var(--bg1) 100%);border:2px solid var(--blue);border-radius:var(--r2);padding:36px 32px;text-align:center">
+      <div style="font-size:28px;margin-bottom:12px">🤝</div>
+      <h4 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(20px,3.5vw,34px);letter-spacing:.05em;margin-bottom:10px">
+        Tertarik Menjadi Mitra <span style="color:var(--yellow)">THE ARENA?</span>
+      </h4>
+      <p style="font-size:13px;color:var(--txt2);max-width:480px;margin:0 auto 24px;line-height:1.7">
+        Hubungi tim sponsorship SAAEC 2026 untuk proposal lengkap, rate card, dan custom package sesuai kebutuhan brand Anda.
+      </p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="mailto:saaec@feb.unpad.ac.id" class="btn btn-yellow btn-sm">📧 Email Kami</a>
+        <a href="https://instagram.com/saaecfebunpad" target="_blank" class="btn btn-outline btn-sm">📲 @saaecfebunpad</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div>
+
+<script>
+// ============================================================
+// CONFIG — Google Sheets CSV endpoints
+// ============================================================
+const SHEET_HASIL_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTDF-PQR3kkC5x4cz9_HoA25W1WWgpW0aq8efH6y9WuZ1jaSf1GQ1x5x5WXrRuzcpQOTtJx6sEkBqXt/pub?gid=0&single=true&output=csv";
+const SHEET_JURUSAN_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTDF-PQR3kkC5x4cz9_HoA25W1WWgpW0aq8efH6y9WuZ1jaSf1GQ1x5x5WXrRuzcpQOTtJx6sEkBqXt/pub?gid=338514514&single=true&output=csv";
+
+
+// ============================================================
+// JADWAL DATA
+// ============================================================
+const JADWAL_DATA = [
+  // ── MEI 16 ──
+  {id:'J001',tgl:'2026-05-16',hari:'Jumat, 16 Mei',wm:'08:00',ws:'10:00',cabang:'Catur',cat:'sport',fase:'Penyisihan',venue:'Gedung C Lt.2',pa:'Manajemen',pb:'Akuntansi',status:'selesai',pemenang:'Manajemen'},
+  {id:'J002',tgl:'2026-05-16',hari:'Jumat, 16 Mei',wm:'08:00',ws:'10:00',cabang:'Catur',cat:'sport',fase:'Penyisihan',venue:'Gedung C Lt.2',pa:'Ilmu Ekonomi',pb:'Bisnis Digital',status:'selesai',pemenang:'Bisnis Digital'},
+  {id:'J003',tgl:'2026-05-16',hari:'Jumat, 16 Mei',wm:'10:00',ws:'12:00',cabang:'Catur',cat:'sport',fase:'Penyisihan',venue:'Gedung C Lt.2',pa:'Ekonomi Islam',pb:'Ilmu Ekonomi',status:'selesai',pemenang:'Manajemen (bye)'},
+  {id:'J004',tgl:'2026-05-16',hari:'Jumat, 16 Mei',wm:'08:00',ws:'11:00',cabang:'FIFA / FC Mobile',cat:'esport',fase:'Penyisihan',venue:'Lab Komputer A',pa:'Manajemen',pb:'Akuntansi',status:'selesai',pemenang:'Akuntansi'},
+  {id:'J005',tgl:'2026-05-16',hari:'Jumat, 16 Mei',wm:'08:00',ws:'11:00',cabang:'FIFA / FC Mobile',cat:'esport',fase:'Penyisihan',venue:'Lab Komputer A',pa:'Ilmu Ekonomi',pb:'Bisnis Digital',status:'selesai',pemenang:'Ilmu Ekonomi'},
+  {id:'J006',tgl:'2026-05-16',hari:'Jumat, 16 Mei',wm:'11:00',ws:'13:00',cabang:'FIFA / FC Mobile',cat:'esport',fase:'Final',venue:'Lab Komputer A',pa:'Akuntansi',pb:'Ilmu Ekonomi',status:'selesai',pemenang:'Akuntansi'},
+  {id:'J007',tgl:'2026-05-16',hari:'Jumat, 16 Mei',wm:'09:00',ws:'23:59',cabang:'Fotografi',cat:'art',fase:'Pengumpulan Karya',venue:'Online / Instagram',pa:'Semua Peserta',pb:'-',status:'selesai',pemenang:'-'},
+  // ── MEI 17 ──
+  {id:'J008',tgl:'2026-05-17',hari:'Sabtu, 17 Mei',wm:'08:00',ws:'10:00',cabang:'Badminton Ganda Putra',cat:'sport',fase:'Penyisihan',venue:'GOR FEB',pa:'Manajemen',pb:'Bisnis Digital',status:'selesai',pemenang:'Manajemen'},
+  {id:'J009',tgl:'2026-05-17',hari:'Sabtu, 17 Mei',wm:'08:00',ws:'10:00',cabang:'Badminton Ganda Putra',cat:'sport',fase:'Penyisihan',venue:'GOR FEB',pa:'Akuntansi',pb:'Ekonomi Islam',status:'selesai',pemenang:'Akuntansi'},
+  {id:'J010',tgl:'2026-05-17',hari:'Sabtu, 17 Mei',wm:'10:00',ws:'12:00',cabang:'Badminton Ganda Putri',cat:'sport',fase:'Penyisihan',venue:'GOR FEB',pa:'Manajemen',pb:'Ilmu Ekonomi',status:'selesai',pemenang:'Ilmu Ekonomi'},
+  {id:'J011',tgl:'2026-05-17',hari:'Sabtu, 17 Mei',wm:'10:00',ws:'12:00',cabang:'Badminton Ganda Putri',cat:'sport',fase:'Penyisihan',venue:'GOR FEB',pa:'Akuntansi',pb:'Bisnis Digital',status:'selesai',pemenang:'Akuntansi'},
+  {id:'J012',tgl:'2026-05-17',hari:'Sabtu, 17 Mei',wm:'13:00',ws:'15:00',cabang:'Badminton Ganda Campuran',cat:'sport',fase:'Penyisihan',venue:'GOR FEB',pa:'Manajemen',pb:'Ekonomi Islam',status:'selesai',pemenang:'Akuntansi (bye)'},
+  {id:'J013',tgl:'2026-05-17',hari:'Sabtu, 17 Mei',wm:'13:00',ws:'15:00',cabang:'Badminton Ganda Campuran',cat:'sport',fase:'Penyisihan',venue:'GOR FEB',pa:'Ilmu Ekonomi',pb:'Bisnis Digital',status:'selesai',pemenang:'Ilmu Ekonomi'},
+  // ── MEI 18 ──
+  {id:'J014',tgl:'2026-05-18',hari:'Minggu, 18 Mei',wm:'09:00',ws:'12:00',cabang:'Tenis Meja',cat:'sport',fase:'Penyisihan',venue:'Aula Serba Guna',pa:'Manajemen',pb:'Akuntansi',status:'selesai',pemenang:'Bisnis Digital (bye)'},
+  {id:'J015',tgl:'2026-05-18',hari:'Minggu, 18 Mei',wm:'09:00',ws:'12:00',cabang:'Tenis Meja',cat:'sport',fase:'Penyisihan',venue:'Aula Serba Guna',pa:'Ilmu Ekonomi',pb:'Ekonomi Islam',status:'selesai',pemenang:'Manajemen'},
+  {id:'J016',tgl:'2026-05-18',hari:'Minggu, 18 Mei',wm:'13:00',ws:'15:00',cabang:'Cerdas Cermat',cat:'academic',fase:'Penyisihan',venue:'Aula Utama FEB',pa:'Manajemen',pb:'Akuntansi',status:'selesai',pemenang:'Manajemen'},
+  {id:'J017',tgl:'2026-05-18',hari:'Minggu, 18 Mei',wm:'13:00',ws:'15:00',cabang:'Cerdas Cermat',cat:'academic',fase:'Penyisihan',venue:'Aula Utama FEB',pa:'Ilmu Ekonomi',pb:'Bisnis Digital',status:'selesai',pemenang:'Ilmu Ekonomi'},
+  {id:'J018',tgl:'2026-05-18',hari:'Minggu, 18 Mei',wm:'15:00',ws:'17:00',cabang:'Cerdas Cermat',cat:'academic',fase:'Final',venue:'Aula Utama FEB',pa:'Manajemen',pb:'Ilmu Ekonomi',status:'selesai',pemenang:'Manajemen'},
+  // ── MEI 20 ──
+  {id:'J019',tgl:'2026-05-20',hari:'Selasa, 20 Mei',wm:'13:00',ws:'17:00',cabang:'Solo Vokal',cat:'art',fase:'Babak Utama',venue:'Auditorium FEB',pa:'Semua Peserta',pb:'-',status:'selesai',pemenang:'Bisnis Digital'},
+  {id:'J020',tgl:'2026-05-20',hari:'Selasa, 20 Mei',wm:'13:00',ws:'17:00',cabang:'Band',cat:'art',fase:'Babak Utama',venue:'Auditorium FEB',pa:'Semua Peserta',pb:'-',status:'selesai',pemenang:'Akuntansi'},
+  {id:'J021',tgl:'2026-05-20',hari:'Selasa, 20 Mei',wm:'09:00',ws:'12:00',cabang:'Mobile Legends',cat:'esport',fase:'Penyisihan',venue:'Lab Komputer B',pa:'Manajemen',pb:'Bisnis Digital',status:'selesai',pemenang:'Manajemen'},
+  {id:'J022',tgl:'2026-05-20',hari:'Selasa, 20 Mei',wm:'09:00',ws:'12:00',cabang:'Mobile Legends',cat:'esport',fase:'Penyisihan',venue:'Lab Komputer B',pa:'Akuntansi',pb:'Ekonomi Islam',status:'selesai',pemenang:'Akuntansi'},
+  // ── MEI 21-22 ──
+  {id:'J023',tgl:'2026-05-21',hari:'Rabu, 21 Mei',wm:'09:00',ws:'12:00',cabang:'Futsal',cat:'sport',fase:'Penyisihan',venue:'Lapangan FEB',pa:'Manajemen',pb:'Bisnis Digital',status:'selesai',pemenang:'Bisnis Digital'},
+  {id:'J024',tgl:'2026-05-21',hari:'Rabu, 21 Mei',wm:'09:00',ws:'12:00',cabang:'Futsal',cat:'sport',fase:'Penyisihan',venue:'Lapangan FEB',pa:'Akuntansi',pb:'Ekonomi Islam',status:'selesai',pemenang:'Ekonomi Islam'},
+  {id:'J025',tgl:'2026-05-21',hari:'Rabu, 21 Mei',wm:'13:00',ws:'15:00',cabang:'Futsal',cat:'sport',fase:'Semifinal',venue:'Lapangan FEB',pa:'Ilmu Ekonomi',pb:'Ekonomi Islam',status:'selesai',pemenang:'Ekonomi Islam'},
+  {id:'J026',tgl:'2026-05-22',hari:'Kamis, 22 Mei',wm:'09:00',ws:'12:00',cabang:'Badminton Ganda Putra',cat:'sport',fase:'Final',venue:'GOR FEB',pa:'Manajemen',pb:'Ilmu Ekonomi',status:'selesai',pemenang:'Manajemen'},
+  {id:'J027',tgl:'2026-05-22',hari:'Kamis, 22 Mei',wm:'13:00',ws:'15:00',cabang:'Badminton Ganda Putri',cat:'sport',fase:'Final',venue:'GOR FEB',pa:'Ilmu Ekonomi',pb:'Akuntansi',status:'selesai',pemenang:'Ilmu Ekonomi'},
+  {id:'J028',tgl:'2026-05-22',hari:'Kamis, 22 Mei',wm:'15:00',ws:'17:00',cabang:'Badminton Ganda Campuran',cat:'sport',fase:'Final',venue:'GOR FEB',pa:'Akuntansi',pb:'Ilmu Ekonomi',status:'selesai',pemenang:'Akuntansi'},
+  // ── MEI 23 ──
+  {id:'J029',tgl:'2026-05-23',hari:'Jumat, 23 Mei',wm:'09:00',ws:'12:00',cabang:'Mobile Legends',cat:'esport',fase:'Semifinal',venue:'Lab Komputer B',pa:'Manajemen',pb:'Akuntansi',status:'selesai',pemenang:'Manajemen'},
+  {id:'J030',tgl:'2026-05-23',hari:'Jumat, 23 Mei',wm:'13:00',ws:'15:00',cabang:'Futsal',cat:'sport',fase:'Final',venue:'Lapangan FEB',pa:'Ekonomi Islam',pb:'Bisnis Digital',status:'selesai',pemenang:'Ekonomi Islam'},
+  // ── MEI 25-28 ──
+  {id:'J031',tgl:'2026-05-25',hari:'Minggu, 25 Mei',wm:'09:00',ws:'13:00',cabang:'Basket Putra',cat:'sport',fase:'Penyisihan',venue:'GOR Unpad',pa:'Manajemen',pb:'Bisnis Digital',status:'berlangsung',pemenang:''},
+  {id:'J032',tgl:'2026-05-25',hari:'Minggu, 25 Mei',wm:'09:00',ws:'13:00',cabang:'Basket Putri',cat:'sport',fase:'Penyisihan',venue:'GOR Unpad',pa:'Akuntansi',pb:'Ekonomi Islam',status:'berlangsung',pemenang:''},
+  {id:'J033',tgl:'2026-05-25',hari:'Minggu, 25 Mei',wm:'14:00',ws:'17:00',cabang:'Basket Putra',cat:'sport',fase:'Penyisihan',venue:'GOR Unpad',pa:'Ilmu Ekonomi',pb:'Akuntansi',status:'berlangsung',pemenang:''},
+  {id:'J034',tgl:'2026-05-26',hari:'Senin, 26 Mei',wm:'09:00',ws:'12:00',cabang:'Billiard',cat:'sport',fase:'Penyisihan',venue:'Billiard Center',pa:'Manajemen',pb:'Ilmu Ekonomi',status:'berlangsung',pemenang:''},
+  {id:'J035',tgl:'2026-05-26',hari:'Senin, 26 Mei',wm:'09:00',ws:'12:00',cabang:'Billiard',cat:'sport',fase:'Penyisihan',venue:'Billiard Center',pa:'Akuntansi',pb:'Bisnis Digital',status:'berlangsung',pemenang:''},
+  {id:'J036',tgl:'2026-05-28',hari:'Rabu, 28 Mei',wm:'09:00',ws:'12:00',cabang:'Valorant',cat:'esport',fase:'Penyisihan',venue:'Lab Komputer A',pa:'Manajemen',pb:'Ekonomi Islam',status:'berlangsung',pemenang:''},
+  {id:'J037',tgl:'2026-05-28',hari:'Rabu, 28 Mei',wm:'13:00',ws:'16:00',cabang:'Valorant',cat:'esport',fase:'Penyisihan',venue:'Lab Komputer A',pa:'Akuntansi',pb:'Bisnis Digital',status:'berlangsung',pemenang:''},
+  {id:'J038',tgl:'2026-05-28',hari:'Rabu, 28 Mei',wm:'09:00',ws:'17:00',cabang:'Business Case Competition',cat:'academic',fase:'Penyisihan',venue:'Ruang Seminar',pa:'Semua Tim',pb:'-',status:'berlangsung',pemenang:''},
+  // ── JUNI 5-7 ──
+  {id:'J039',tgl:'2026-06-05',hari:'Jumat, 5 Jun',wm:'09:00',ws:'13:00',cabang:'Basket Putra',cat:'sport',fase:'Semifinal',venue:'GOR Unpad',pa:'TBD',pb:'TBD',status:'upcoming',pemenang:''},
+  {id:'J040',tgl:'2026-06-05',hari:'Jumat, 5 Jun',wm:'14:00',ws:'17:00',cabang:'Basket Putri',cat:'sport',fase:'Semifinal',venue:'GOR Unpad',pa:'TBD',pb:'TBD',status:'upcoming',pemenang:''},
+  {id:'J041',tgl:'2026-06-06',hari:'Sabtu, 6 Jun',wm:'09:00',ws:'12:00',cabang:'Mobile Legends',cat:'esport',fase:'Final',venue:'Lab Komputer B',pa:'Manajemen',pb:'TBD',status:'upcoming',pemenang:''},
+  {id:'J042',tgl:'2026-06-06',hari:'Sabtu, 6 Jun',wm:'13:00',ws:'16:00',cabang:'Valorant',cat:'esport',fase:'Final',venue:'Lab Komputer A',pa:'TBD',pb:'TBD',status:'upcoming',pemenang:''},
+  {id:'J043',tgl:'2026-06-07',hari:'Minggu, 7 Jun',wm:'09:00',ws:'13:00',cabang:'Modern Dance',cat:'art',fase:'Babak Utama',venue:'Auditorium FEB',pa:'Semua Tim',pb:'-',status:'upcoming',pemenang:''},
+  {id:'J044',tgl:'2026-06-07',hari:'Minggu, 7 Jun',wm:'13:00',ws:'17:00',cabang:'Mural',cat:'art',fase:'Babak Utama',venue:'Lobi FEB',pa:'Semua Peserta',pb:'-',status:'upcoming',pemenang:''},
+  // ── JUNI 8-10 ──
+  {id:'J045',tgl:'2026-06-08',hari:'Senin, 8 Jun',wm:'09:00',ws:'17:00',cabang:'PUBG Mobile',cat:'esport',fase:'Penyisihan',venue:'Lab Komputer B',pa:'Semua Tim',pb:'-',status:'upcoming',pemenang:''},
+  {id:'J046',tgl:'2026-06-09',hari:'Selasa, 9 Jun',wm:'09:00',ws:'12:00',cabang:'Valorant',cat:'esport',fase:'Final',venue:'Lab Komputer A',pa:'TBD',pb:'TBD',status:'upcoming',pemenang:''},
+  {id:'J047',tgl:'2026-06-10',hari:'Rabu, 10 Jun',wm:'07:00',ws:'10:00',cabang:'Lari 100M Putra',cat:'sport',fase:'Final',venue:'Track Atletik Unpad',pa:'Semua Peserta',pb:'-',status:'upcoming',pemenang:''},
+  {id:'J048',tgl:'2026-06-10',hari:'Rabu, 10 Jun',wm:'10:00',ws:'12:00',cabang:'Lari 100M Putri',cat:'sport',fase:'Final',venue:'Track Atletik Unpad',pa:'Semua Peserta',pb:'-',status:'upcoming',pemenang:''},
+  // ── JUNI 11-13 ──
+  {id:'J049',tgl:'2026-06-11',hari:'Kamis, 11 Jun',wm:'09:00',ws:'13:00',cabang:'Billiard',cat:'sport',fase:'Final',venue:'Billiard Center',pa:'TBD',pb:'TBD',status:'upcoming',pemenang:''},
+  {id:'J050',tgl:'2026-06-11',hari:'Kamis, 11 Jun',wm:'13:00',ws:'17:00',cabang:'Business Case Competition',cat:'academic',fase:'Final',venue:'Aula Utama FEB',pa:'TBD',pb:'-',status:'upcoming',pemenang:''},
+  {id:'J051',tgl:'2026-06-12',hari:'Jumat, 12 Jun',wm:'09:00',ws:'12:00',cabang:'Basket Putra',cat:'sport',fase:'Final',venue:'GOR Unpad',pa:'TBD',pb:'TBD',status:'upcoming',pemenang:''},
+  {id:'J052',tgl:'2026-06-12',hari:'Jumat, 12 Jun',wm:'13:00',ws:'15:00',cabang:'Basket Putri',cat:'sport',fase:'Final',venue:'GOR Unpad',pa:'TBD',pb:'TBD',status:'upcoming',pemenang:''},
+  {id:'J053',tgl:'2026-06-12',hari:'Jumat, 12 Jun',wm:'09:00',ws:'12:00',cabang:'Futsal',cat:'sport',fase:'Final',venue:'Lapangan FEB',pa:'TBD',pb:'TBD',status:'upcoming',pemenang:''},
+  {id:'J054',tgl:'2026-06-12',hari:'Jumat, 12 Jun',wm:'13:00',ws:'16:00',cabang:'Lari Estafet',cat:'sport',fase:'Final',venue:'Track Atletik Unpad',pa:'Semua Tim',pb:'-',status:'upcoming',pemenang:''},
+  {id:'J055',tgl:'2026-06-12',hari:'Jumat, 12 Jun',wm:'16:00',ws:'18:00',cabang:'Tenis Meja',cat:'sport',fase:'Final',venue:'Aula Serba Guna',pa:'TBD',pb:'TBD',status:'upcoming',pemenang:''},
+  {id:'J056',tgl:'2026-06-13',hari:'Sabtu, 13 Jun',wm:'09:00',ws:'11:00',cabang:'PUBG Mobile',cat:'esport',fase:'Final',venue:'Lab Komputer B',pa:'TBD',pb:'TBD',status:'upcoming',pemenang:''},
+  {id:'J057',tgl:'2026-06-13',hari:'Sabtu, 13 Jun',wm:'19:00',ws:'22:00',cabang:'Closing & Award Night',cat:'special',fase:'Ceremony',venue:'Auditorium Utama',pa:'Semua Jurusan',pb:'-',status:'upcoming',pemenang:''},
+];
+
+const BRACKET_DATA = {
+  'Mobile Legends': {
+    rounds: [
+      { name:'Penyisihan', matches:[
+        {t1:'Manajemen',t2:'Bisnis Digital',s1:3,s2:0,done:true},
+        {t1:'Akuntansi',t2:'Ekonomi Islam',s1:3,s2:1,done:true},
+        {t1:'Ilmu Ekonomi',t2:'TBD',s1:3,s2:0,done:true},
+      ]},
+      { name:'Semifinal', matches:[
+        {t1:'Manajemen',t2:'Akuntansi',s1:3,s2:1,done:true},
+        {t1:'Ilmu Ekonomi',t2:'TBD',s1:null,s2:null,done:false},
+      ]},
+      { name:'Grand Final', matches:[
+        {t1:'Manajemen',t2:'TBD',s1:null,s2:null,done:false,live:false},
+      ]},
+    ]
+  },
+  'Valorant': {
+    rounds: [
+      { name:'Penyisihan', matches:[
+        {t1:'Manajemen',t2:'Ekonomi Islam',s1:null,s2:null,done:false,live:true},
+        {t1:'Akuntansi',t2:'Bisnis Digital',s1:null,s2:null,done:false,live:true},
+      ]},
+      { name:'Final', matches:[
+        {t1:'TBD',t2:'TBD',s1:null,s2:null,done:false},
+      ]},
+    ]
+  },
+  'Futsal': {
+    rounds: [
+      { name:'Penyisihan', matches:[
+        {t1:'Manajemen',t2:'Bisnis Digital',s1:1,s2:3,done:true},
+        {t1:'Akuntansi',t2:'Ekonomi Islam',s1:0,s2:2,done:true},
+        {t1:'Ilmu Ekonomi',t2:'Manajemen',s1:1,s2:2,done:true},
+      ]},
+      { name:'Semifinal', matches:[
+        {t1:'Ekonomi Islam',t2:'Ilmu Ekonomi',s1:3,s2:1,done:true},
+      ]},
+      { name:'Final', matches:[
+        {t1:'Ekonomi Islam',t2:'Bisnis Digital',s1:2,s2:1,done:true},
+      ]},
+    ]
+  },
+  'Basket Putra': {
+    rounds: [
+      { name:'Penyisihan', matches:[
+        {t1:'Manajemen',t2:'Bisnis Digital',s1:null,s2:null,done:false,live:true},
+        {t1:'Ilmu Ekonomi',t2:'Akuntansi',s1:null,s2:null,done:false,live:true},
+      ]},
+      { name:'Semifinal', matches:[
+        {t1:'TBD',t2:'TBD',s1:null,s2:null,done:false},
+      ]},
+      { name:'Final', matches:[
+        {t1:'TBD',t2:'TBD',s1:null,s2:null,done:false},
+      ]},
+    ]
+  },
+  'Cerdas Cermat': {
+    rounds: [
+      { name:'Penyisihan', matches:[
+        {t1:'Manajemen',t2:'Akuntansi',s1:85,s2:70,done:true},
+        {t1:'Ilmu Ekonomi',t2:'Bisnis Digital',s1:78,s2:65,done:true},
+        {t1:'Ekonomi Islam',t2:'TBD',s1:72,s2:60,done:true},
+      ]},
+      { name:'Final', matches:[
+        {t1:'Manajemen',t2:'Ilmu Ekonomi',s1:92,s2:80,done:true},
+      ]},
+    ]
+  },
+};
+
+// ── JADWAL RENDER ─────────────────────────────────────────
+let jadwalView = 'hari';
+function setJadwalView(v, btn) {
+  jadwalView = v;
+  document.querySelectorAll('#jdwl-view-tabs .tab').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderJadwal();
+}
+
+function getJadwalFiltered() {
+  const search = (document.getElementById('jdwl-search')?.value||'').toLowerCase();
+  const cat = document.getElementById('jdwl-cat')?.value||'all';
+  const status = document.getElementById('jdwl-status')?.value||'all';
+  const fase = document.getElementById('jdwl-fase')?.value||'all';
+  return JADWAL_DATA.filter(j => {
+    const ms = !search || j.cabang.toLowerCase().includes(search) || j.venue.toLowerCase().includes(search) || j.pa.toLowerCase().includes(search) || j.pb.toLowerCase().includes(search);
+    const mc = cat==='all' || j.cat===cat;
+    const mst = status==='all' || j.status===status;
+    const mf = fase==='all' || j.fase===fase;
+    return ms && mc && mst && mf;
+  });
+}
+
+const catColor = {sport:'var(--yellow)',esport:'var(--cyan)',art:'var(--red)',academic:'#6699FF',special:'#AA00FF'};
+const catBadge = {sport:'b-sport',esport:'b-esport',art:'b-art',academic:'b-academic',special:'b-up'};
+const statusColor = {selesai:'#00E676',berlangsung:'var(--red)',upcoming:'var(--txt3)'};
+const statusLabel = {selesai:'✓ Selesai',berlangsung:'● Live',upcoming:'○ Upcoming'};
+const faseColor = {
+  'Final':'var(--yellow)','Semifinal':'var(--cyan)',
+  'Penyisihan':'var(--txt2)','Babak Utama':'var(--red)',
+  'Pengumpulan Karya':'#AA00FF','Penjurian':'#AA00FF','Ceremony':'var(--yellow)'
+};
+
+function renderJadwal() {
+  const filtered = getJadwalFiltered();
+  const total = filtered.length;
+  const selesai = filtered.filter(j=>j.status==='selesai').length;
+  const live = filtered.filter(j=>j.status==='berlangsung').length;
+  const el = document.getElementById('jadwal-content');
+  const sumEl = document.getElementById('jdwl-summary');
+  if(sumEl) sumEl.textContent = `${total} pertandingan · ${selesai} selesai · ${live} live`;
+  if(!el) return;
+
+  if(jadwalView === 'hari') renderJadwalHari(filtered, el);
+  else if(jadwalView === 'tabel') renderJadwalTabel(filtered, el);
+  else if(jadwalView === 'bracket') renderJadwalBracket(el);
+}
+
+function renderJadwalHari(data, el) {
+  if(!data.length){ el.innerHTML='<div class="empty">Tidak ada pertandingan ditemukan 🔍</div>'; return; }
+  const byDay = {};
+  data.forEach(j => {
+    if(!byDay[j.tgl]) byDay[j.tgl] = {label:j.hari, items:[]};
+    byDay[j.tgl].items.push(j);
+  });
+  el.innerHTML = Object.keys(byDay).sort().map(tgl => {
+    const day = byDay[tgl];
+    const hasLive = day.items.some(j=>j.status==='berlangsung');
+    return `
+    <div style="margin-bottom:28px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;position:sticky;top:90px;z-index:10;background:var(--bg);padding:8px 0">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.06em;color:${hasLive?'var(--red)':'var(--yellow)'}">${day.label}</div>
+        ${hasLive?'<span class="badge b-live">LIVE</span>':''}
+        <div style="flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)"></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--txt3)">${day.items.length} sesi</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        ${day.items.map(j => jadwalCard(j)).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function jadwalCard(j) {
+  const isLive = j.status==='berlangsung';
+  const isDone = j.status==='selesai';
+  const isVS = j.pb && j.pb !== '-';
+  return `
+  <div class="card" style="padding:14px 18px;border-left:3px solid ${catColor[j.cat]||'var(--cyan)'};${isLive?'border-color:var(--red);box-shadow:0 0 0 1px rgba(255,45,85,.15);':''}display:flex;align-items:center;gap:14px;flex-wrap:wrap;transition:all .2s">
+    <div style="min-width:80px;flex-shrink:0">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:${isLive?'var(--red)':isDone?'var(--txt3)':'var(--cyan)'};line-height:1">${j.wm}</div>
+      <div style="font-size:10px;color:var(--txt3);font-family:'JetBrains Mono',monospace">${j.ws}</div>
+    </div>
+    <div style="flex:1;min-width:140px">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;flex-wrap:wrap">
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:${catColor[j.cat]}">${j.cabang}</span>
+        <span class="badge ${catBadge[j.cat]||'b-up'}">${j.cat.toUpperCase()}</span>
+        <span style="font-size:10px;font-weight:700;color:${faseColor[j.fase]||'var(--txt2)'};font-family:'JetBrains Mono',monospace">${j.fase}</span>
+      </div>
+      <div style="font-size:11px;color:var(--txt3)">📍 ${j.venue}</div>
+    </div>
+    ${isVS ? `
+    <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;flex-wrap:wrap;justify-content:center">
+      <div style="font-size:12px;font-weight:600;color:${isDone&&j.pemenang===j.pa?'var(--yellow)':'var(--txt1)'};text-align:right;max-width:100px">${j.pa}</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:${isLive?'var(--red)':'var(--txt3)'}">VS</div>
+      <div style="font-size:12px;font-weight:600;color:${isDone&&j.pemenang===j.pb?'var(--yellow)':'var(--txt1)'};text-align:left;max-width:100px">${j.pb}</div>
+    </div>` : `<div style="font-size:12px;color:var(--txt2);flex-shrink:0">${j.pa}</div>`}
+    <div style="flex-shrink:0;text-align:right;min-width:70px">
+      <div style="font-size:11px;font-weight:600;color:${statusColor[j.status]}">${statusLabel[j.status]}</div>
+      ${isDone&&j.pemenang&&j.pemenang!=='-'?`<div style="font-size:10px;color:var(--yellow);font-family:'JetBrains Mono',monospace;margin-top:2px">🏆 ${j.pemenang}</div>`:''}
+    </div>
+  </div>`;
+}
+
+function renderJadwalTabel(data, el) {
+  if(!data.length){ el.innerHTML='<div class="empty">Tidak ada pertandingan ditemukan 🔍</div>'; return; }
+  el.innerHTML = `
+  <div class="card" style="overflow:hidden;padding:0">
+    <div style="overflow-x:auto">
+      <table class="tbl" style="min-width:700px">
+        <thead>
+          <tr>
+            <th>Waktu</th>
+            <th>Cabang</th>
+            <th>Kategori</th>
+            <th>Fase</th>
+            <th>Venue</th>
+            <th>Peserta</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${data.map(j=>`
+          <tr>
+            <td style="font-family:'JetBrains Mono',monospace;font-size:11px;white-space:nowrap">
+              <div style="color:var(--txt1);font-weight:600">${j.hari.split(',')[0]}</div>
+              <div style="color:var(--cyan)">${j.wm}–${j.ws}</div>
+            </td>
+            <td style="font-weight:600;color:${catColor[j.cat]||'var(--cyan)'}">${j.cabang}</td>
+            <td><span class="badge ${catBadge[j.cat]||'b-up'}">${j.cat}</span></td>
+            <td style="font-size:11px;color:${faseColor[j.fase]||'var(--txt2)'}font-weight:600">${j.fase}</td>
+            <td style="font-size:12px;color:var(--txt2)">${j.venue}</td>
+            <td style="font-size:12px">
+              ${j.pb&&j.pb!=='-'?`<span style="color:${j.pemenang===j.pa?'var(--yellow)':'var(--txt1)'}">${j.pa}</span> <span style="color:var(--txt3);font-family:'JetBrains Mono',monospace;font-size:10px">vs</span> <span style="color:${j.pemenang===j.pb?'var(--yellow)':'var(--txt1)'}">${j.pb}</span>`:j.pa}
+            </td>
+            <td>
+              <div style="font-size:10px;font-weight:700;color:${statusColor[j.status]}">${statusLabel[j.status]}</div>
+              ${j.pemenang&&j.pemenang!=='-'?`<div style="font-size:9px;color:var(--yellow)">🏆 ${j.pemenang}</div>`:''}
+            </td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>
+  </div>`;
+}
+
+function renderJadwalBracket(el) {
+  const keys = Object.keys(BRACKET_DATA);
+  const activeBracket = document.getElementById('bracket-select')?.value || keys[0];
+  el.innerHTML = `
+  <div style="margin-bottom:16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--txt2);letter-spacing:.06em">PILIH CABANG:</div>
+    <select class="sel" id="bracket-select" onchange="renderJadwal()" style="min-width:200px">
+      ${keys.map(k=>`<option value="${k}" ${k===activeBracket?'selected':''}>${k}</option>`).join('')}
+    </select>
+    <div style="font-size:11px;color:var(--txt3);font-family:'JetBrains Mono',monospace">
+      ${BRACKET_DATA[activeBracket]?.rounds.length||0} babak · 
+      ${BRACKET_DATA[activeBracket]?.rounds.flatMap(r=>r.matches).filter(m=>m.done).length||0} selesai
+    </div>
+  </div>
+  <div style="overflow-x:auto;padding-bottom:12px">
+    <div style="display:flex;gap:40px;min-width:${(BRACKET_DATA[activeBracket]?.rounds.length||1)*220}px;padding:8px 0 16px">
+      ${(BRACKET_DATA[activeBracket]?.rounds||[]).map(r=>`
+        <div style="min-width:190px;display:flex;flex-direction:column;gap:0">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:${faseColor[r.name]||'var(--txt3)'};letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border)">${r.name}</div>
+          <div style="display:flex;flex-direction:column;justify-content:space-around;flex:1;gap:14px">
+            ${r.matches.map(m=>`
+            <div class="card" style="padding:0;overflow:hidden;${m.live?'border-color:rgba(255,45,85,.4);box-shadow:0 0 12px rgba(255,45,85,.15);':''}">
+              ${m.live?'<div style="height:2px;background:var(--red);animation:livePulse 2s ease infinite"></div>':''}
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border-bottom:1px solid var(--border2);background:${m.done&&m.s1>m.s2?'rgba(255,230,0,.05)':'transparent'}">
+                <span style="font-size:12px;font-weight:600;color:${m.done&&m.s1!=null&&m.s2!=null&&m.s1>m.s2?'var(--yellow)':'var(--txt1)'}">${m.t1}</span>
+                <span style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:${m.done?'var(--yellow)':m.live?'var(--red)':'var(--txt3)'}">${m.s1??'–'}</span>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:${m.done&&m.s2!=null&&m.s1!=null&&m.s2>m.s1?'rgba(255,230,0,.05)':'transparent'}">
+                <span style="font-size:12px;font-weight:600;color:${m.done&&m.s1!=null&&m.s2!=null&&m.s2>m.s1?'var(--yellow)':'var(--txt1)'}">${m.t2}</span>
+                <span style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:${m.done?'var(--yellow)':m.live?'var(--red)':'var(--txt3)'}">${m.s2??'–'}</span>
+              </div>
+            </div>`).join('')}
+          </div>
+        </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+// ── SPONSOR DATA ─────────────────────────────────────────────
+const SPONSORS = {
+  gold: [
+    { name:'[Main Sponsor]', abbr:'MS', color:'#FFE600', cat:'Main Sponsor · Rp 10.000.000',
+      benefits:'"SAAEC 2026 presented by [Sponsor]" · Logo dominan di semua media · 3x feed + 3 stories + 1 reels · Booth eksklusif',
+      desc:'Slot Main Sponsor masih tersedia. Dapatkan hak eksklusif konten promosi di seluruh venue dan acara utama SAAEC 2026.' },
+    { name:'[Main Sponsor 2]', abbr:'MS', color:'#FFE600', cat:'Main Sponsor · Rp 10.000.000',
+      benefits:'"SAAEC 2026 presented by [Sponsor]" · TikTok watermark · MC ad-libs · Promo produk dalam kompetisi',
+      desc:'Jadikan nama brand Anda identik dengan THE ARENA. Visibilitas penuh di seluruh ekosistem event.' },
+  ],
+  silver: [
+    { name:'[Champion Sponsor]', abbr:'CH', color:'#C0C0C0', cat:'Champion Package · Rp 5.000.000',
+      benefits:'Logo besar di semua media · 2x feed + 2 stories · Booth besar opening & closing · MC ad-libs · Logo sertifikat',
+      desc:'Slot Champion Package tersedia. Raih visibilitas premium di momen paling berkesan SAAEC 2026.' },
+    { name:'[Champion Sponsor 2]', abbr:'CH', color:'#C0C0C0', cat:'Champion Package · Rp 5.000.000',
+      benefits:'Logo besar poster, feed IG, spanduk, kaos panitia · Booth ceremony · Mention MC · Sertifikat pemenang',
+      desc:'Brand Anda hadir di setiap momen kemenangan — dari opening hingga closing ceremony.' },
+    { name:'[Champion Sponsor 3]', abbr:'CH', color:'#C0C0C0', cat:'Champion Package · Rp 5.000.000',
+      benefits:'Logo besar di semua media · 2x IG feed + 2 stories · Booth besar · MC ad-libs · Logo sertifikat pemenang',
+      desc:'Jadilah bagian dari momen kemenangan 648 peserta SAAEC 2026.' },
+  ],
+  bronze: [
+    { name:'[Support Sponsor]', abbr:'SP', color:'#CD8B4A', cat:'Support Package · Rp 3.000.000',
+      benefits:'Logo sedang semua media · 1x IG feed + 1 story · Booth kecil opening · Mention opening · Logo sertifikat',
+      desc:'Slot Support Package tersedia. Hadir di hari pembukaan dan jangkau ratusan mahasiswa FEB Unpad.' },
+    { name:'[Support Sponsor 2]', abbr:'SP', color:'#CD8B4A', cat:'Support Package · Rp 3.000.000',
+      benefits:'Logo sedang poster, feed IG, spanduk, kaos panitia · IG post & story · Booth & mention opening',
+      desc:'Bangun brand awareness di kalangan mahasiswa ekonomi bisnis Unpad.' },
+    { name:'[Support Sponsor 3]', abbr:'SP', color:'#CD8B4A', cat:'Support Package · Rp 3.000.000',
+      benefits:'Logo sedang di semua media · 1x feed + 1 story · Booth kecil · Mention saat opening',
+      desc:'Sambungkan brand Anda dengan komunitas mahasiswa FEB Unpad yang aktif dan kompetitif.' },
+    { name:'[Partner Sponsor]', abbr:'PT', color:'#FF6D00', cat:'Partner Package · Rp 1.000.000',
+      benefits:'Logo kecil di semua media (poster, feed IG, spanduk, kaos panitia) · 1x Instagram story mention · Sertifikat digital',
+      desc:'Entry point terbaik untuk mulai membangun kehadiran brand di lingkungan FEB Unpad.' },
+  ],
+  media: [
+    { name:'[Media Partner]', abbr:'MP', color:'#00F5FF', cat:'Media Partner',
+      benefits:'Liputan event · Press release · Coverage di semua sesi pertandingan',
+      desc:'Slot media partner tersedia. Liput dan sebarkan cerita THE ARENA 2026 kepada audiens Anda.' },
+    { name:'[Media Partner 2]', abbr:'MP', color:'#FF2D55', cat:'Media Online / Radio',
+      benefits:'Liputan event · Artikel berita · Sosial media coverage · Siaran langsung',
+      desc:'Jadikan SAAEC 2026 konten unggulan platform Anda.' },
+    { name:'[Media Partner 3]', abbr:'MP', color:'#AA00FF', cat:'Media Digital',
+      benefits:'Content partnership · Dokumentasi video · Wawancara juara · Coverage sosmed',
+      desc:'Kolaborasi konten eksklusif bersama tim SAAEC 2026.' },
+    { name:'[Media Partner 4]', abbr:'MP', color:'#00E676', cat:'Media Kampus',
+      benefits:'Liputan eksklusif · Live streaming · Dokumentasi resmi event',
+      desc:'Partner media resmi untuk menjangkau seluruh sivitas akademika Unpad.' },
+  ],
+};
+function renderSponsors(){
+  const accent={gold:'var(--yellow)',silver:'#C0C0C0',bronze:'#CD8B4A',media:'var(--cyan)'};
+  ['gold','silver','bronze','media'].forEach(tier=>{
+    const el=document.getElementById('sp-'+tier);
+    if(!el)return;
+    el.innerHTML=SPONSORS[tier].map(sp=>`
+      <div class="card sp-card card-glow" style="border-top:3px solid ${accent[tier]}">
+        <div class="sp-logo-box" style="width:80px;height:80px;font-size:20px;color:${sp.color};border-color:${sp.color}33;background:${sp.color}11">${sp.abbr}</div>
+        <div class="sp-name" style="color:${sp.color}">${sp.name}</div>
+        <div class="sp-cat">${sp.cat}</div>
+        <div class="sp-benefit">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:${accent[tier]};letter-spacing:.08em;margin-bottom:5px">BENEFITS</div>
+          ${sp.benefits}
+        </div>
+        <div style="font-size:11px;color:var(--txt3);text-align:center;line-height:1.5">${sp.desc}</div>
+      </div>`).join('');
+  });
+}
+
+const SCORE_TABLE = {
+  sport:    {s1:[3,2,1], s3:[6,4,2], s8:[15,10,5]},
+  esport:   {s1:[3,2,1], s3:[6,4,2], s8:[15,10,5]},
+  art:      {s1:[3,2,1], s3:[6,4,2]},
+  academic: {s1:[3,2,1], s3:[6,4,2]},
+};
+
+const TIMELINE = [
+  {date:'15 Mei 2026', title:'Opening Ceremony', desc:'Pembukaan resmi THE ARENA. Parade seluruh 5 kontingen jurusan.', state:'done'},
+  {date:'16 Mei 2026', title:'Main Event Dimulai', desc:'Babak penyisihan seluruh 23 cabang lomba berlangsung serempak.', state:'active'},
+  {date:'16 Mei–12 Jun', title:'Main Event Berlangsung', desc:'648 peserta bertarung di seluruh arena hingga babak final.', state:'active'},
+  {date:'13 Juni 2026', title:'Closing & Award Night', desc:'Pengumuman Juara Umum SAAEC 2026 + Awarding Ceremony.', state:'upcoming'},
+];
+
+// fallback statis kalau Sheets gagal di-fetch (mis. browser block / belum publish dgn benar)
+const FALLBACK_CABANG = [
+  {id_cabang:'badm_dp',nama_cabang:'Badminton Ganda Putra',kategori:'sport',emoji:'🏸',jumlah_anggota:'2',tier_poin:'s1',jumlah_tim_peserta:'15',jadwal:'16-20 Mei',status:'done',juara_1:'Manajemen',juara_2:'Akuntansi',juara_3:'Ilmu Ekonomi'},
+];
+const FALLBACK_JURUSAN = [
+  {id_jurusan:'mgmt',nama_jurusan:'Manajemen',singkatan:'MGT',warna_hex:'#FFE600',total_delegasi:'39'},
+  {id_jurusan:'akun',nama_jurusan:'Akuntansi',singkatan:'AKT',warna_hex:'#00F5FF',total_delegasi:'39'},
+  {id_jurusan:'ie',nama_jurusan:'Ilmu Ekonomi',singkatan:'IE',warna_hex:'#FF2D55',total_delegasi:'41'},
+  {id_jurusan:'bd',nama_jurusan:'Bisnis Digital',singkatan:'BD',warna_hex:'#FF85A1',total_delegasi:'31'},
+  {id_jurusan:'ekis',nama_jurusan:'Ekonomi Islam',singkatan:'EI',warna_hex:'#00FF88',total_delegasi:'43'},
+];
+
+let CABANG = [];
+let JURUSAN = [];
+let dataSourceStatus = 'loading'; // loading | live | fallback
+
+// ============================================================
+// CSV PARSER (simple, handles quoted commas)
+// ============================================================
+function parseCSV(text){
+  const rows = [];
+  let row = [], field = '', inQuotes = false;
+  for(let i=0;i<text.length;i++){
+    const c = text[i], next = text[i+1];
+    if(inQuotes){
+      if(c === '"' && next === '"'){ field += '"'; i++; }
+      else if(c === '"'){ inQuotes = false; }
+      else field += c;
+    } else {
+      if(c === '"') inQuotes = true;
+      else if(c === ','){ row.push(field); field = ''; }
+      else if(c === '\n'){ row.push(field); rows.push(row); row = []; field = ''; }
+      else if(c === '\r'){ /* skip */ }
+      else field += c;
+    }
+  }
+  if(field.length || row.length){ row.push(field); rows.push(row); }
+  if(!rows.length) return [];
+  const headers = rows[0].map(h=>h.trim());
+  return rows.slice(1).filter(r=>r.some(c=>c && c.trim()!=='')).map(r=>{
+    const obj = {};
+    headers.forEach((h,i)=>{ obj[h] = (r[i]||'').trim(); });
+    return obj;
+  });
+}
+
+// ── CORS PROXY FETCH ─────────────────────────────────────
+// Google Sheets CSV tidak bisa di-fetch langsung (CORS block).
+// Kita coba beberapa proxy secara berurutan — kalau satu gagal, lanjut ke berikutnya.
+const CORS_PROXIES = [
+  url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+  url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+  url => `https://proxy.cors.sh/${url}`,
+];
+
+async function fetchCSV(url) {
+  // Coba setiap proxy satu per satu
+  for (let i = 0; i < CORS_PROXIES.length; i++) {
+    try {
+      const proxyUrl = CORS_PROXIES[i](url);
+      const res = await fetch(proxyUrl, {
+        cache: 'no-store',
+        signal: AbortSignal.timeout(8000), // timeout 8 detik per proxy
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const text = await res.text();
+      // Validasi: pastikan response adalah CSV beneran (ada koma, ada newline)
+      if (!text.includes(',') || text.trim().length < 10) {
+        throw new Error('Response bukan CSV valid');
+      }
+      console.log(`✓ Sheets berhasil via proxy ${i+1}: ${proxyUrl.slice(0,50)}...`);
+      return parseCSV(text);
+    } catch (err) {
+      console.warn(`✗ Proxy ${i+1} gagal: ${err.message}`);
+      if (i === CORS_PROXIES.length - 1) throw new Error('Semua proxy gagal: ' + err.message);
+    }
+  }
+}
+
+// ============================================================
+// LOAD DATA
+// ============================================================
+async function loadAllData(){
+  try{
+    // Update banner ke loading state
+    dataSourceStatus = 'loading';
+    renderDataStatusBanner();
+
+    const [hasilRaw, jurusanRaw] = await Promise.all([
+      fetchCSV(SHEET_HASIL_URL),
+      fetchCSV(SHEET_JURUSAN_URL)
+    ]);
+    if(!hasilRaw.length || !jurusanRaw.length) throw new Error('Data kosong — cek isi Google Sheets');
+    console.log(`✓ Data loaded: ${hasilRaw.length} cabang, ${jurusanRaw.length} jurusan`);
+
+    CABANG = hasilRaw.map(r=>({
+      id: r.id_cabang,
+      name: r.nama_cabang,
+      cat: r.kategori,
+      emoji: r.emoji || '🏅',
+      size: parseInt(r.jumlah_anggota)||1,
+      tier: r.tier_poin,
+      peserta: parseInt(r.jumlah_tim_peserta)||0,
+      jadwal: r.jadwal,
+      status: r.status || 'upcoming',
+      winner: r.juara_1 || null,
+      w2: r.juara_2 || null,
+      w3: r.juara_3 || null,
+    }));
+
+    JURUSAN = jurusanRaw.map(r=>({
+      id: r.id_jurusan,
+      name: r.nama_jurusan,
+      abbr: r.singkatan,
+      color: r.warna_hex || '#00F5FF',
+      delegasi: parseInt(r.total_delegasi)||0,
+      poin:0, emas:0, perak:0, perunggu:0,
+    }));
+
+    dataSourceStatus = 'live';
+  }catch(err){
+    console.warn('Gagal fetch Google Sheets, pakai fallback:', err);
+    CABANG = FALLBACK_CABANG.map(r=>({
+      id:r.id_cabang,name:r.nama_cabang,cat:r.kategori,emoji:r.emoji,size:parseInt(r.jumlah_anggota)||1,
+      tier:r.tier_poin,peserta:parseInt(r.jumlah_tim_peserta)||0,jadwal:r.jadwal,status:r.status,
+      winner:r.juara_1||null,w2:r.juara_2||null,w3:r.juara_3||null,
+    }));
+    JURUSAN = FALLBACK_JURUSAN.map(r=>({
+      id:r.id_jurusan,name:r.nama_jurusan,abbr:r.singkatan,color:r.warna_hex,
+      delegasi:parseInt(r.total_delegasi)||0,poin:0,emas:0,perak:0,perunggu:0,
+    }));
+    dataSourceStatus = 'fallback';
+  }
+
+  computePoints();
+  checkNewWinners();
+  renderDataStatusBanner();
+}
+
+function computePoints(){
+  JURUSAN.forEach(j=>{ j.poin=0; j.emas=0; j.perak=0; j.perunggu=0; });
+  CABANG.forEach(c=>{
+    if(!c.winner) return;
+    const table = SCORE_TABLE[c.cat];
+    if(!table || !table[c.tier]) return;
+    [c.winner, c.w2, c.w3].forEach((name, i)=>{
+      if(!name) return;
+      const j = JURUSAN.find(x=>x.name && x.name.trim().toLowerCase()===name.trim().toLowerCase());
+      if(!j) return;
+      const p = table[c.tier][i] || 0;
+      j.poin += p;
+      if(i===0) j.emas++;
+      if(i===1) j.perak++;
+      if(i===2) j.perunggu++;
+    });
+  });
+}
+
+function renderDataStatusBanner(){
+  const el = document.getElementById('data-status');
+  if(!el) return;
+  if(dataSourceStatus==='live'){
+    el.innerHTML = `<div class="data-banner live">✓ Data live tersambung dari Google Sheets — auto-refresh setiap 60 detik</div>`;
+  } else if(dataSourceStatus==='loading'){
+    el.innerHTML = `<div class="data-banner loading">⟳ Menghubungkan ke Google Sheets...</div>`;
+  } else {
+    el.innerHTML = `<div class="data-banner error">
+      ⚠ Gagal memuat data dari Google Sheets. Menampilkan data cadangan.<br>
+      <span style="font-size:10px;opacity:.7">Kemungkinan sebab: sheet belum di-publish, atau semua CORS proxy sedang down. Coba refresh halaman dalam 1 menit.</span>
+    </div>`;
+  }
+}
+
+// ============================================================
+// CANVAS BG
+// ============================================================
+const cvs = document.getElementById('bg-canvas');
+const ctx = cvs.getContext('2d');
+let W,H,ptsArr=[];
+function resize(){W=cvs.width=innerWidth;H=cvs.height=innerHeight}
+resize(); addEventListener('resize',resize);
+class P{
+  constructor(){this.reset()}
+  reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.r=Math.random()*1.2+.2;this.vx=(Math.random()-.5)*.25;this.vy=(Math.random()-.5)*.25;this.a=Math.random()*.35+.05;this.c=Math.random()>.65?'0,245,255':'255,230,0'}
+  tick(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>W||this.y<0||this.y>H)this.reset()}
+  draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fillStyle=`rgba(${this.c},${this.a})`;ctx.fill()}
+}
+for(let i=0;i<100;i++)ptsArr.push(new P());
+function loop(){
+  ctx.clearRect(0,0,W,H);
+  ptsArr.forEach(p=>{p.tick();p.draw()});
+  for(let i=0;i<ptsArr.length;i++)for(let j=i+1;j<ptsArr.length;j++){
+    const dx=ptsArr[i].x-ptsArr[j].x,dy=ptsArr[i].y-ptsArr[j].y,d=Math.sqrt(dx*dx+dy*dy);
+    if(d<90){ctx.beginPath();ctx.moveTo(ptsArr[i].x,ptsArr[i].y);ctx.lineTo(ptsArr[j].x,ptsArr[j].y);ctx.strokeStyle=`rgba(0,245,255,${.04*(1-d/90)})`;ctx.lineWidth=.5;ctx.stroke()}
+  }
+  requestAnimationFrame(loop);
+}
+loop();
+
+// ============================================================
+// NAV
+// ============================================================
+function goTo(pg){
+  // Add 'out' to current visible page for exit animation
+  const current = document.querySelector('.page.on');
+  if(current && current.id !== 'page-'+pg){
+    current.classList.add('out');
+    setTimeout(()=>current.classList.remove('on','out'), 200);
+  }
+  // Show new page with enter animation after brief delay
+  setTimeout(()=>{
+    const next = document.getElementById('page-'+pg);
+    if(next) next.classList.add('on');
+  }, current ? 80 : 0);
+  document.querySelectorAll('[data-pg]').forEach(b=>b.classList.toggle('active', b.dataset.pg===pg));
+  document.getElementById('nav-links').classList.remove('open');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(pg==='dashboard') buildDashboard();
+  if(pg==='leaderboard') buildLeaderboard('overall');
+  if(pg==='cabang') renderCabang();
+  if(pg==='peserta') renderPeserta();
+  if(pg==='jadwal'){ renderJadwal(); }
+  if(pg==='sponsor') renderSponsors();
+}
+function toggleNav(){document.getElementById('nav-links').classList.toggle('open')}
+addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',scrollY>10);
+  const btn = document.getElementById('scroll-top');
+  if(btn) btn.classList.toggle('show', scrollY > 320);
+});
+
+// ── TOAST SYSTEM ──────────────────────────────────────────
+let _toastQueue = [];
+function showToast(icon, title, desc, color='var(--cyan)', duration=4000){
+  const container = document.getElementById('toast-container');
+  if(!container) return;
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.style.borderLeftColor = color;
+  toast.innerHTML = `<span class="toast-icon">${icon}</span><div class="toast-body"><div class="toast-title">${title}</div>${desc?`<div class="toast-desc">${desc}</div>`:''}</div>`;
+  container.appendChild(toast);
+  requestAnimationFrame(()=>{ requestAnimationFrame(()=>toast.classList.add('show')); });
+  setTimeout(()=>{
+    toast.classList.add('hide');
+    setTimeout(()=>toast.remove(), 250);
+  }, duration);
+}
+
+// Track winners to detect new ones on auto-refresh
+let _prevWinners = {};
+function checkNewWinners(){
+  CABANG.forEach(c=>{
+    if(c.winner && c.winner !== _prevWinners[c.id]){
+      if(_prevWinners[c.id] !== undefined){
+        // This is a genuinely NEW winner since last refresh
+        showToast('🏆', `${c.winner} juara ${c.name}!`, `Kategori ${c.cat.toUpperCase()} · ${c.fase||'Final'}`, 'var(--yellow)');
+      }
+      _prevWinners[c.id] = c.winner;
+    }
+  });
+}
+
+// ============================================================
+// TICKER
+// ============================================================
+function buildTicker(elId){
+  const el = document.getElementById(elId);
+  if(!el) return;
+  const items = [];
+  const sorted = [...JURUSAN].sort((a,b)=>b.poin-a.poin);
+  if(sorted.length) items.push(`${sorted[0].name} memimpin klasemen sementara`);
+  CABANG.filter(c=>c.winner).slice(-5).forEach(c=>{
+    items.push(`${c.name}: ${c.winner} juara — ${c.emoji}`);
+  });
+  items.push('SAAEC 2026 · 648 Peserta · 23 Cabang · THE ARENA');
+  items.push('Closing Ceremony: 13 Juni 2026');
+  if(!items.length) items.push('SAAEC 2026 — THE ARENA');
+  const html = items.map(t=>`<span class="ticker-item"><span class="ticker-sep">◆</span> ${t}</span>`).join('');
+  el.innerHTML = html+html;
+}
+
+// ============================================================
+// HERO COUNTERS
+// ============================================================
+function countUp(elId,target,dur=1200){
+  const el=document.getElementById(elId); if(!el) return;
+  const start=performance.now();
+  function step(t){const p=Math.min((t-start)/dur,1);const e=1-Math.pow(1-p,3);el.textContent=Math.round(e*target);if(p<1)requestAnimationFrame(step)}
+  requestAnimationFrame(step);
+}
+
+// ============================================================
+// COUNTDOWN
+// ============================================================
+function runCountdown(){
+  const target = new Date('2026-06-13T20:00:00+07:00').getTime();
+  function tick(){
+    const diff = target-Date.now();
+    if(diff<0){['cd-d','cd-h','cd-m','cd-s'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='00'});return}
+    const d=Math.floor(diff/864e5),h=Math.floor((diff%864e5)/36e5),m=Math.floor((diff%36e5)/6e4),s=Math.floor((diff%6e4)/1e3);
+    const fmt=n=>String(n).padStart(2,'0');
+    ['cd-d','cd-h','cd-m','cd-s'].forEach((id,i)=>{const el=document.getElementById(id);const v=fmt([d,h,m,s][i]);if(el&&el.textContent!==v)el.textContent=v});
+  }
+  tick(); setInterval(tick,1000);
+}
+
+// ============================================================
+// TIMELINE
+// ============================================================
+function buildTimeline(){
+  const el=document.getElementById('tl-container');
+  el.innerHTML = TIMELINE.map(t=>`
+    <div class="tl-item">
+      <div class="tl-dot ${t.state}"></div>
+      <div class="tl-body">
+        <div class="tl-date">${t.date} ${t.state==='active'?'<span class="badge b-live" style="margin-left:6px;vertical-align:middle">LIVE</span>':''}</div>
+        <div class="tl-title">${t.title}</div>
+        <div class="tl-desc">${t.desc}</div>
+      </div>
+    </div>`).join('');
+}
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+function buildDashboard(){
+  renderDataStatusBanner();
+  const totalPeserta = CABANG.reduce((s,c)=>s+c.peserta,0);
+  const totalDelegasi = JURUSAN.reduce((s,j)=>s+j.delegasi,0);
+  const kpis = [
+    {val:648, label:'Total Peserta', color:'var(--cyan)'},
+    {val:CABANG.length||23, label:'Cabang Lomba', color:'var(--yellow)'},
+    {val:146, label:'Pertandingan', color:'var(--red)'},
+    {val:totalDelegasi||193, label:'Total Delegasi', color:'#6699FF'},
+    {val:JURUSAN.length||5, label:'Jurusan', color:'var(--pink)'},
+  ];
+  document.getElementById('kpi-grid').innerHTML = kpis.map(k=>`
+    <div class="card kpi" style="--kpi-color:${k.color}"><div class="kpi-val">${k.val}</div><div class="kpi-label">${k.label}</div></div>
+  `).join('');
+
+  const doneCount = CABANG.filter(c=>c.status==='done').length;
+  const pct = Math.round(doneCount/Math.max(CABANG.length,1)*100);
+  const phases = [
+    {name:'Opening (15 Mei)', pct:100},
+    {name:'Penyisihan & Semifinal', pct:Math.min(pct+20,100)},
+    {name:'Cabang Selesai', pct:pct},
+    {name:'Final Series (6–12 Jun)', pct:0},
+    {name:'Closing (13 Jun)', pct:0},
+  ];
+  document.getElementById('prog-phases').innerHTML = phases.map(p=>`
+    <div class="prog-phase"><span>${p.name}</span><span class="ph-pct">${p.pct}%</span></div>
+    <div class="prog-phase-bar"><div class="prog-wrap"><div class="prog-fill" style="width:${p.pct}%"></div></div></div>
+  `).join('');
+
+  const delegSorted = [...JURUSAN].sort((a,b)=>b.delegasi-a.delegasi);
+  const maxDeleg = delegSorted[0]?.delegasi || 1;
+  document.getElementById('deleg-list').innerHTML = delegSorted.map((j,i)=>`
+    <div class="deleg-row">
+      <div class="deleg-rank ${i===0?'r1':i===1?'r2':i===2?'r3':''}">${i<3?['🥇','🥈','🥉'][i]:`#${i+1}`}</div>
+      <div><div class="deleg-name">HIMA ${j.name}</div>
+        <div class="prog-wrap" style="width:130px;margin-top:6px"><div class="prog-fill" style="width:${Math.round(j.delegasi/maxDeleg*100)}%"></div></div>
+      </div>
+      <div class="deleg-count">${j.delegasi}</div>
+    </div>`).join('');
+
+  const sorted = [...JURUSAN].sort((a,b)=>b.poin-a.poin);
+  const maxPts = sorted[0]?.poin || 1;
+  document.getElementById('dash-standings').innerHTML = sorted.map((j,i)=>`
+    <div class="dept-row" style="padding:12px 18px">
+      <div class="dept-rank ${i===0?'r1':i===1?'r2':i===2?'r3':''}">${i<3?['🥇','🥈','🥉'][i]:`#${i+1}`}</div>
+      <div class="dept-name" style="color:${j.color}">${j.name}</div>
+      <div class="dept-bar-wrap"><div class="prog-wrap"><div class="prog-fill" style="width:${maxPts?Math.round(j.poin/maxPts*100):0}%"></div></div></div>
+      <div class="dept-medals">
+        <span style="color:var(--yellow);font-family:'JetBrains Mono',monospace;font-size:11px">🥇${j.emas}</span>
+        <span style="color:#C0C0C0;font-family:'JetBrains Mono',monospace;font-size:11px">🥈${j.perak}</span>
+        <span style="color:#CD8B4A;font-family:'JetBrains Mono',monospace;font-size:11px">🥉${j.perunggu}</span>
+      </div>
+      <div class="dept-pts">${j.poin}</div>
+    </div>`).join('');
+
+  const catMeta = {
+    sport:{icon:'🏆',name:'Sport',color:'var(--yellow)',kpi:'--kpi-color:var(--yellow)'},
+    esport:{icon:'🎮',name:'E-Sport',color:'var(--cyan)',kpi:'--kpi-color:var(--cyan)'},
+    art:{icon:'🎨',name:'Arts',color:'var(--red)',kpi:'--kpi-color:var(--red)'},
+    academic:{icon:'📚',name:'Academic',color:'#6699FF',kpi:'--kpi-color:#6699FF'},
+  };
+  const cats = ['sport','esport','art','academic'];
+  document.getElementById('cat-breakdown').innerHTML = cats.map(catKey=>{
+    const meta = catMeta[catKey];
+    const items = CABANG.filter(c=>c.cat===catKey);
+    const totalPeserta = items.reduce((s,c)=>s+c.peserta,0);
+    return `
+    <div class="card cat-breakdown-card" style="${meta.kpi}">
+      <div class="cat-bd-header"><span class="cat-bd-icon">${meta.icon}</span><div class="cat-bd-count">${totalPeserta}</div></div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:${meta.color}">${meta.name}</div>
+      <div style="font-size:11px;color:var(--txt3);margin:4px 0 12px;font-family:'JetBrains Mono',monospace">${items.length} cabang</div>
+      <div class="hr" style="margin-bottom:10px"></div>
+      ${items.map(c=>`<div class="cat-item"><span class="cat-item-name">${c.name}</span><span class="cat-item-num">${c.peserta}</span></div>`).join('')}
+    </div>`;
+  }).join('');
+
+  buildTicker('dash-ticker');
+}
+
+// ============================================================
+// LEADERBOARD
+// ============================================================
+function getCatPts(jname, catFilter){
+  let total=0;
+  CABANG.filter(c=>catFilter.includes(c.cat)).forEach(c=>{
+    const table = SCORE_TABLE[c.cat];
+    if(!table || !table[c.tier]) return;
+    if(c.winner && c.winner.trim().toLowerCase()===jname.trim().toLowerCase()) total+=table[c.tier][0];
+    else if(c.w2 && c.w2.trim().toLowerCase()===jname.trim().toLowerCase()) total+=table[c.tier][1];
+    else if(c.w3 && c.w3.trim().toLowerCase()===jname.trim().toLowerCase()) total+=table[c.tier][2];
+  });
+  return total;
+}
+
+function setLbTab(tab, btn){
+  document.querySelectorAll('#lb-tabs .tab').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  buildLeaderboard(tab);
+}
+
+function buildLeaderboard(tab){
+  let data = JURUSAN.map(j=>{
+    let poin = j.poin;
+    if(tab==='sport') poin = getCatPts(j.name,['sport']);
+    else if(tab==='esport') poin = getCatPts(j.name,['esport']);
+    else if(tab==='artac') poin = getCatPts(j.name,['art','academic']);
+    return {...j, dispPts: poin};
+  }).sort((a,b)=>b.dispPts-a.dispPts);
+
+  const top3overall = [...JURUSAN].sort((a,b)=>b.poin-a.poin).slice(0,3);
+  const podiumOrder = [top3overall[1], top3overall[0], top3overall[2]];
+  document.getElementById('podium').innerHTML = podiumOrder.map((j,vi)=>{
+    if(!j) return '';
+    const rank = vi===1?1:vi===0?2:3;
+    const rankLabel = ['🥇','🥈','🥉'][rank-1];
+    const col = rank===1?'var(--yellow)':rank===2?'#D0D0D0':'#CD8B4A';
+    return `
+    <div class="pod-col pod-${rank}">
+      <div class="pod-avatar" style="color:${col}">${j.abbr}</div>
+      <div class="pod-name">${j.name}</div>
+      <div class="pod-pts" style="color:${col}">${j.poin} pts</div>
+      <div class="pod-stage">${rankLabel}</div>
+    </div>`;
+  }).join('');
+
+  const maxPts = data[0]?.dispPts || 1;
+  document.getElementById('lb-table').innerHTML = data.length ? data.map((j,i)=>`
+    <div class="lb-row ${i===0?'gold-row':''}">
+      <div class="lb-rank ${i===0?'r1':i===1?'r2':i===2?'r3':''}" style="font-family:'Bebas Neue',sans-serif;font-size:18px">${i<3?['🥇','🥈','🥉'][i]:`#${i+1}`}</div>
+      <div class="lb-dept">
+        <div class="lb-dept-name" style="color:${j.color}">${j.name}</div>
+        <div class="lb-medals"><span class="lb-m-g">🥇 ${j.emas}</span><span class="lb-m-s">🥈 ${j.perak}</span><span class="lb-m-b">🥉 ${j.perunggu}</span></div>
+      </div>
+      <div style="text-align:right;font-size:12px;font-weight:600;color:var(--txt2)">${j.emas+j.perak+j.perunggu}</div>
+      <div style="text-align:right;font-size:12px;color:var(--txt2)" class="lb-w-col">${j.delegasi}</div>
+      <div class="lb-bar-col"><div class="prog-wrap" style="width:100px"><div class="prog-fill" style="width:${maxPts?Math.round(j.dispPts/maxPts*100):0}%"></div></div></div>
+      <div class="lb-pts-cell">${j.dispPts}</div>
+    </div>`).join('') : `<div class="empty">Belum ada data</div>`;
+}
+
+// ============================================================
+// CABANG
+// ============================================================
+function setCabFilter(v){const el=document.getElementById('cab-filter');if(el)el.value=v;renderCabang()}
+
+function renderCabang(){
+  const search=(document.getElementById('cab-search')?.value||'').toLowerCase();
+  const cat=document.getElementById('cab-filter')?.value||'all';
+  const stat=document.getElementById('cab-status')?.value||'all';
+  let list = CABANG.filter(c=>{
+    const ms=c.name.toLowerCase().includes(search);
+    const mc=cat==='all'||c.cat===cat;
+    const mst=stat==='all'||c.status===stat;
+    return ms&&mc&&mst;
+  });
+
+  const doneN=CABANG.filter(c=>c.status==='done').length;
+  const onN=CABANG.filter(c=>c.status==='ongoing').length;
+  const upN=CABANG.filter(c=>c.status==='upcoming').length;
+  document.getElementById('cabang-stat-row').innerHTML=[
+    `<span class="badge b-done">✓ Selesai: ${doneN}</span>`,
+    `<span class="badge b-live">● Berlangsung: ${onN}</span>`,
+    `<span class="badge b-up">○ Upcoming: ${upN}</span>`,
+  ].join('');
+
+  const catAccent={sport:'var(--yellow)',esport:'var(--cyan)',art:'var(--red)',academic:'#6699FF'};
+  const catBadge={sport:'b-sport',esport:'b-esport',art:'b-art',academic:'b-academic'};
+  const statusBadge={done:'b-done',ongoing:'b-live',upcoming:'b-up'};
+  const statusLabel={done:'Selesai',ongoing:'Berlangsung',upcoming:'Upcoming'};
+  const tierLabel={s1:'1–2org',s3:'3–7org',s8:'8–12org'};
+
+  document.getElementById('cabang-grid').innerHTML = list.length ? list.map(c=>`
+    <div class="card cabang-card card-glow" style="--cb-accent:${catAccent[c.cat]||'var(--cyan)'}">
+      <div class="cb-top">
+        <div>
+          <div class="cb-name">${c.name}</div>
+          <div style="display:flex;gap:6px;align-items:center;margin-top:5px;flex-wrap:wrap">
+            <span class="badge ${catBadge[c.cat]||'b-sport'}">${(c.cat||'').toUpperCase()}</span>
+            <span class="badge ${statusBadge[c.status]||'b-up'}">${statusLabel[c.status]||c.status}</span>
+          </div>
+        </div>
+        <span style="font-size:24px">${c.emoji}</span>
+      </div>
+      <div class="cb-meta">
+        <span>👥 ${c.peserta} tim</span>
+        <span>📅 ${c.jadwal}</span>
+        <span style="color:${catAccent[c.cat]}">${tierLabel[c.tier]||c.tier}</span>
+      </div>
+      ${c.winner ? `
+      <div class="cb-winner">
+        <span>👑</span><span class="label">JUARA 1:</span><span class="name">${c.winner}</span>
+        ${c.w2?`<span style="margin-left:auto;font-size:10px;color:var(--txt3)">🥈 ${c.w2}</span>`:''}
+      </div>` : `<div class="cb-tbd">⏳ Pemenang belum ditentukan</div>`}
+    </div>`).join('') : `<div class="empty" style="grid-column:1/-1">Cabang tidak ditemukan 🔍</div>`;
+}
+
+// ============================================================
+// PESERTA
+// ============================================================
+function renderPeserta(){
+  const search=(document.getElementById('ps-search')?.value||'').toLowerCase();
+  const sort=document.getElementById('ps-sort')?.value||'poin';
+  let list=[...JURUSAN].filter(j=>j.name.toLowerCase().includes(search));
+  list.sort((a,b)=>{
+    if(sort==='poin')return b.poin-a.poin;
+    if(sort==='delegasi')return b.delegasi-a.delegasi;
+    if(sort==='name')return a.name.localeCompare(b.name);
+    if(sort==='emas')return b.emas-a.emas;
+    return 0;
+  });
+  const sortedOverall=[...JURUSAN].sort((a,b)=>b.poin-a.poin);
+  const maxPts=sortedOverall[0]?.poin||1;
+
+  document.getElementById('peserta-grid').innerHTML = list.length ? list.map(j=>{
+    const rank=sortedOverall.findIndex(x=>x.id===j.id)+1;
+    const rankLabel=rank<=3?['🥇','🥈','🥉'][rank-1]:`#${rank}`;
+    const cats=[...new Set(CABANG.filter(c=>[c.winner,c.w2,c.w3].some(n=>n&&n.trim().toLowerCase()===j.name.trim().toLowerCase())).map(c=>c.cat))];
+    return `
+    <div class="card peserta-card card-yellow">
+      <div style="display:flex;align-items:center;gap:13px">
+        <div class="peserta-logo" style="color:${j.color};border-color:${j.color}33;background:${j.color}11">${j.abbr}</div>
+        <div style="flex:1"><div class="peserta-name">${j.name}</div><div class="peserta-full">${j.delegasi} Delegasi</div></div>
+        <div style="font-size:20px">${rankLabel}</div>
+      </div>
+      <div class="g3" style="gap:8px">
+        <div class="pstat"><div class="pstat-num" style="color:var(--cyan)">${j.poin}</div><div class="pstat-label">Poin</div></div>
+        <div class="pstat"><div class="pstat-num" style="color:var(--yellow)">${j.emas}</div><div class="pstat-label">Emas</div></div>
+        <div class="pstat"><div class="pstat-num" style="color:#C0C0C0">${j.perak}</div><div class="pstat-label">Perak</div></div>
+      </div>
+      <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+        ${cats.map(c=>`<span class="badge ${c==='sport'?'b-sport':c==='esport'?'b-esport':c==='art'?'b-art':'b-academic'}">${c.toUpperCase()}</span>`).join('')}
+        <span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--txt3)">${j.delegasi} delegasi</span>
+      </div>
+      <div class="prog-wrap"><div class="prog-fill" style="width:${maxPts?Math.round(j.poin/maxPts*100):0}%"></div></div>
+    </div>`;
+  }).join('') : `<div class="empty" style="grid-column:1/-1">Jurusan tidak ditemukan</div>`;
+}
+
+// ============================================================
+// INIT
+// ============================================================
+async function init(){
+  await loadAllData();
+  buildTicker('ticker-inner');
+  buildTimeline();
+  runCountdown();
+  setTimeout(()=>{
+    countUp('hs1',648); countUp('hs2',CABANG.length||23); countUp('hs3',146);
+    countUp('hs4',JURUSAN.reduce((s,j)=>s+j.delegasi,0)||193); countUp('hs5',JURUSAN.length||5);
+  },1600);
+  renderCabang();
+  renderPeserta();
+  renderSponsors();
+  renderJadwal();
+  buildDashboard();
+  buildLeaderboard('overall');
+
+  // Welcome toast after loader fades
+  setTimeout(()=>{
+    showToast('⚡', 'THE ARENA 2026', 'Data live tersambung · Auto-refresh 60 detik', 'var(--cyan)', 5000);
+  }, 2400);
+
+  const l=document.getElementById('loader');
+  l.style.transition='opacity .6s ease';
+  l.style.opacity='0';
+  setTimeout(()=>l.style.display='none',600);
+}
+init();
+
+// auto-refresh data tiap 60 detik supaya update panitia kelihatan tanpa reload manual
+setInterval(async ()=>{
+  await loadAllData();
+  if(document.getElementById('page-dashboard').classList.contains('on')) buildDashboard();
+  if(document.getElementById('page-leaderboard').classList.contains('on')){
+    const activeTab = document.querySelector('#lb-tabs .tab.on');
+    const tabMap = {'Juara Umum':'overall','Sport':'sport','E-Sport':'esport','Art & Academic':'artac'};
+    buildLeaderboard(tabMap[activeTab?.textContent.trim()]||'overall');
+  }
+  if(document.getElementById('page-cabang').classList.contains('on')) renderCabang();
+  if(document.getElementById('page-peserta').classList.contains('on')) renderPeserta();
+  if(document.getElementById('page-jadwal').classList.contains('on')) renderJadwal();
+  if(document.getElementById('page-sponsor').classList.contains('on')) renderSponsors();
+  buildTicker('ticker-inner');
+}, 60000);
+</script>
+</body>
+</html>
